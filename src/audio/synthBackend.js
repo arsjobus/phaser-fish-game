@@ -7,22 +7,34 @@ function midiToHz(midi) {
   return 440 * 2 ** ((midi - 69) / 12);
 }
 
-export function createSynthBackend(windowObject = globalThis.window) {
+export function createSynthBackend(
+  windowObject = globalThis.window,
+  musicUrl = null,
+) {
   const AudioContextClass =
     windowObject?.AudioContext ?? windowObject?.webkitAudioContext;
-  if (!AudioContextClass) {
-    return null;
-  }
-
   let context = null;
   let master = null;
   let musicBus = null;
   let effectsBus = null;
   let failed = false;
   let musicEnabled = true;
+  let musicStarted = false;
   let queued = new Set();
+  let musicElement = null;
+
+  if (!AudioContextClass && !windowObject?.Audio) {
+    return null;
+  }
+
+  if (musicUrl && windowObject?.Audio) {
+    musicElement = new windowObject.Audio(musicUrl);
+    musicElement.loop = true;
+    musicElement.preload = 'auto';
+  }
 
   function ensureContext() {
+    if (!AudioContextClass) return null;
     if (context || failed) return context;
     try {
       context = new AudioContextClass();
@@ -109,11 +121,12 @@ export function createSynthBackend(windowObject = globalThis.window) {
 
   return {
     isAvailable() {
-      return !failed;
+      return (!failed || Boolean(musicElement));
     },
 
     currentTime() {
-      return context ? context.currentTime : 0;
+      if (context) return context.currentTime;
+      return musicElement?.currentTime ?? 0;
     },
 
     resume() {
@@ -121,15 +134,34 @@ export function createSynthBackend(windowObject = globalThis.window) {
       if (ctx && ctx.state === 'suspended') {
         ctx.resume().catch(() => {});
       }
+      if (musicElement && musicStarted && musicEnabled && musicElement.paused) {
+        musicElement.play().catch(() => {});
+      }
     },
 
     suspend() {
       if (context && context.state === 'running') {
         context.suspend().catch(() => {});
       }
+      if (musicElement) {
+        musicElement.pause();
+      }
+    },
+
+    startMusic(volume = 1) {
+      if (!musicElement) return;
+      musicStarted = true;
+      musicElement.volume = volume;
+      if (musicEnabled) {
+        musicElement.play().catch(() => {});
+      }
     },
 
     scheduleNote(note, volume) {
+      if (musicElement) {
+        musicElement.volume = volume;
+        return;
+      }
       if (!ensureContext() || !musicEnabled) return;
       const isBass = note.voice === 'bass';
       const oscillator = tone({
@@ -156,9 +188,21 @@ export function createSynthBackend(windowObject = globalThis.window) {
       if (musicBus && context) {
         musicBus.gain.setTargetAtTime(enabled ? 1 : 0, context.currentTime, 0.02);
       }
+      if (musicElement) {
+        if (enabled && musicStarted) {
+          musicElement.play().catch(() => {});
+        } else if (!enabled) {
+          musicElement.pause();
+        }
+      }
     },
 
     silenceMusic() {
+      if (musicElement) {
+        musicStarted = false;
+        musicElement.pause();
+        musicElement.currentTime = 0;
+      }
       for (const oscillator of queued) {
         try {
           oscillator.stop();

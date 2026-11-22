@@ -7,7 +7,6 @@
   <circle cx="19" cy="28" r="8" fill="#fff5df"/>
   <circle cx="17" cy="29" r="4" fill="#182a3a"/>
   <circle cx="15" cy="27" r="1.2" fill="#fff"/>
-  <path d="M7 30C12 28 15 28 20 30C15 33 11 33 7 30Z" fill="#b83d13"/>
   <path d="M30 15C36 23 36 37 29 46" fill="none" stroke="#c83d12" stroke-width="2" opacity=".8"/>
   <path d="M56 27C62 23 67 24 71 30C66 35 60 34 56 27Z" fill="#d94b12"/>
 </svg>

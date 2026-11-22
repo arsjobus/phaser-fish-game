@@ -18,6 +18,7 @@ export const gameConfig = Object.freeze({
     scorePerFish: 10,
     progressionThresholds: Object.freeze([36, 48, 72, 96, 120, 176]),
     collisionRadiusScale: 0.5,
+    collisionAspectRatio: 0.6,
   }),
   fishPopulation: Object.freeze({
     spawnIntervalSeconds: 1.2,

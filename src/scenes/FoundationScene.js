@@ -42,7 +42,7 @@ import {
 } from '../presentation/screens.js';
 
 const PLAYER_TEXTURE = 'player-fish';
-const FISH_ASPECT = 0.6;
+const FISH_ASPECT = gameConfig.player.collisionAspectRatio;
 
 function fishTextureKey(variantIndex) {
   return `fish-${gameConfig.fishPopulation.visualVariants[variantIndex]}`;
@@ -103,8 +103,12 @@ export class FoundationScene extends Phaser.Scene {
     this.pulseStartedAt = -Infinity;
     this.hud = null;
 
+    const base = import.meta.env.BASE_URL;
     this.audio = createAudioController(
-      createSynthBackend(window),
+      createSynthBackend(
+        window,
+        `${base}audio/underwater_fish_bgm.mp3`,
+      ),
       gameConfig.audio,
     );
     this.soundControls = buildSoundControls(this, this.audio);

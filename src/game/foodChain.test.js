@@ -6,6 +6,7 @@ const config = {
   growthPerMeal: 4,
   scorePerFish: 10,
   collisionRadiusScale: 0.5,
+  collisionAspectRatio: 0.6,
 };
 
 describe('food-chain collision resolution', () => {
@@ -30,6 +31,16 @@ describe('food-chain collision resolution', () => {
 
     expect(run.status).toBe('dead');
     expect(run.eatenCount).toBe(0);
+  });
+
+  it('does not collide when flattened fish bodies are vertically separated', () => {
+    const run = createRunState(config);
+    const fish = [{ id: 1, x: 100, y: 160, size: 80 }];
+
+    resolveFishCollisions({ x: 100, y: 100 }, run, fish, config);
+
+    expect(run.status).toBe('playing');
+    expect(fish).toHaveLength(1);
   });
 
   it('treats equal-size contact as dangerous', () => {

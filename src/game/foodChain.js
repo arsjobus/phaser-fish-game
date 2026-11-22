@@ -6,20 +6,26 @@ import {
 
 export { createRunState, resetRunState };
 
-// The gameplay size is the entity diameter. Collision is a circle with the
-// configured fraction of that diameter as its radius.
-export function getCollisionRadius(entity, radiusScale = 0.5) {
-  return entity.size * radiusScale;
+// Fish are drawn as flattened ellipses, so their collision bounds use the
+// same width-to-height ratio rather than a larger circle.
+export function getCollisionRadii(entity, radiusScale = 0.5, aspectRatio = 0.6) {
+  return {
+    x: entity.size * radiusScale,
+    y: entity.size * radiusScale * aspectRatio,
+  };
 }
 
-export function circlesOverlap(first, second, radiusScale = 0.5) {
+export function ellipsesOverlap(first, second, radiusScale = 0.5, aspectRatio = 0.6) {
   const dx = first.x - second.x;
   const dy = first.y - second.y;
-  const distance = Math.hypot(dx, dy);
+  const firstRadii = getCollisionRadii(first, radiusScale, aspectRatio);
+  const secondRadii = getCollisionRadii(second, radiusScale, aspectRatio);
+  const combinedRadiusX = firstRadii.x + secondRadii.x;
+  const combinedRadiusY = firstRadii.y + secondRadii.y;
   return (
-    distance <=
-    getCollisionRadius(first, radiusScale) +
-      getCollisionRadius(second, radiusScale)
+    (dx * dx) / (combinedRadiusX * combinedRadiusX) +
+      (dy * dy) / (combinedRadiusY * combinedRadiusY) <=
+    1
   );
 }
 
@@ -40,10 +46,11 @@ export function resolveFishCollisions(player, runState, fish, config) {
         y: prey.y,
         size: prey.size,
       };
-      return circlesOverlap(
+      return ellipsesOverlap(
         playerEntity,
         preyEntity,
         config.collisionRadiusScale,
+        config.collisionAspectRatio,
       );
     })
     .sort((first, second) => first.size - second.size || first.id - second.id);

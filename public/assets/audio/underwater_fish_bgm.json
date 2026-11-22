@@ -1,0 +1,1190 @@
+{
+  "name": "Underwater Drift - Fish Game BGM",
+  "version": "1.0.0",
+  "createdAt": "2026-11-22T12:10:00.000Z",
+  "settings": {
+    "mode": "8-bit",
+    "waveform": "triangle",
+    "dutyCycle": 0.5,
+    "envelope": {
+      "attack": 0.08,
+      "decay": 0.35,
+      "sustain": 0.58,
+      "release": 0.45
+    },
+    "vibrato": {
+      "rate": 0.35,
+      "depth": 2,
+      "enabled": false
+    },
+    "bitcrusher": {
+      "enabled": false,
+      "bits": 8,
+      "sampleRate": 22050
+    },
+    "masterVolume": 0.34
+  },
+  "events": [
+    {
+      "id": "underwater-0001",
+      "note": "B2",
+      "frequency": 123.4708,
+      "timestamp": 0.0,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0125",
+      "note": "B3",
+      "frequency": 246.9417,
+      "timestamp": 0.0,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0033",
+      "note": "F#5",
+      "frequency": 739.9888,
+      "timestamp": 0.0,
+      "duration": 514.286,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0034",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 1071.429,
+      "duration": 442.857,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0002",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 1428.571,
+      "duration": 1178.571,
+      "velocity": 0.075
+    },
+    {
+      "id": "underwater-0035",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 1785.714,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0003",
+      "note": "D3",
+      "frequency": 146.8324,
+      "timestamp": 2857.143,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0038",
+      "note": "F#5",
+      "frequency": 739.9888,
+      "timestamp": 2857.143,
+      "duration": 514.286,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0036",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 3214.286,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0039",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 3928.571,
+      "duration": 442.857,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0126",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 4285.714,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0037",
+      "note": "F#4",
+      "frequency": 369.9944,
+      "timestamp": 4285.714,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0040",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 4642.857,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0004",
+      "note": "A3",
+      "frequency": 220.0,
+      "timestamp": 5714.286,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0043",
+      "note": "F#5",
+      "frequency": 739.9888,
+      "timestamp": 5714.286,
+      "duration": 514.286,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0041",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 6071.429,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0044",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 6785.714,
+      "duration": 442.857,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0005",
+      "note": "E4",
+      "frequency": 329.6276,
+      "timestamp": 7142.857,
+      "duration": 1178.571,
+      "velocity": 0.075
+    },
+    {
+      "id": "underwater-0042",
+      "note": "F#4",
+      "frequency": 369.9944,
+      "timestamp": 7142.857,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0045",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 7500.0,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0006",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 8571.429,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0127",
+      "note": "D4",
+      "frequency": 293.6648,
+      "timestamp": 8571.429,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0048",
+      "note": "F#5",
+      "frequency": 739.9888,
+      "timestamp": 8571.429,
+      "duration": 514.286,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0046",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 8928.571,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0049",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 9642.857,
+      "duration": 442.857,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0047",
+      "note": "F#4",
+      "frequency": 369.9944,
+      "timestamp": 10000.0,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0050",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 10357.143,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0007",
+      "note": "B2",
+      "frequency": 123.4708,
+      "timestamp": 11428.571,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0051",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 11785.714,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0053",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 11785.714,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0008",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 12857.143,
+      "duration": 1178.571,
+      "velocity": 0.075
+    },
+    {
+      "id": "underwater-0128",
+      "note": "A3",
+      "frequency": 220.0,
+      "timestamp": 12857.143,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0052",
+      "note": "F#4",
+      "frequency": 369.9944,
+      "timestamp": 12857.143,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0054",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 12857.143,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0055",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 13928.571,
+      "duration": 785.714,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0009",
+      "note": "D3",
+      "frequency": 146.8324,
+      "timestamp": 14285.714,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0057",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 14642.857,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0058",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 15714.286,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0056",
+      "note": "F#5",
+      "frequency": 739.9888,
+      "timestamp": 15714.286,
+      "duration": 571.429,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0059",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 16785.714,
+      "duration": 785.714,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0129",
+      "note": "B3",
+      "frequency": 246.9417,
+      "timestamp": 17142.857,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0010",
+      "note": "E4",
+      "frequency": 329.6276,
+      "timestamp": 17142.857,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0061",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 17500.0,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0011",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 18571.429,
+      "duration": 1178.571,
+      "velocity": 0.075
+    },
+    {
+      "id": "underwater-0062",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 18571.429,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0060",
+      "note": "F#5",
+      "frequency": 739.9888,
+      "timestamp": 18571.429,
+      "duration": 571.429,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0063",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 19642.857,
+      "duration": 785.714,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0012",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 20000.0,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0065",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 20357.143,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0130",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 21428.571,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0066",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 21428.571,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0064",
+      "note": "F#5",
+      "frequency": 739.9888,
+      "timestamp": 21428.571,
+      "duration": 571.429,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0067",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 22500.0,
+      "duration": 785.714,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0013",
+      "note": "B2",
+      "frequency": 123.4708,
+      "timestamp": 22857.143,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0133",
+      "note": "B3",
+      "frequency": 246.9417,
+      "timestamp": 22857.143,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0069",
+      "note": "E5",
+      "frequency": 659.2551,
+      "timestamp": 22857.143,
+      "duration": 514.286,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0070",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 23928.571,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0014",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 24285.714,
+      "duration": 1178.571,
+      "velocity": 0.075
+    },
+    {
+      "id": "underwater-0068",
+      "note": "F#5",
+      "frequency": 739.9888,
+      "timestamp": 24285.714,
+      "duration": 571.429,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0071",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 25000.0,
+      "duration": 857.143,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0015",
+      "note": "D3",
+      "frequency": 146.8324,
+      "timestamp": 25714.286,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0131",
+      "note": "E4",
+      "frequency": 329.6276,
+      "timestamp": 25714.286,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0073",
+      "note": "E5",
+      "frequency": 659.2551,
+      "timestamp": 25714.286,
+      "duration": 514.286,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0072",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 26785.714,
+      "duration": 571.429,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0074",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 26785.714,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0134",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 27142.857,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0075",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 27857.143,
+      "duration": 857.143,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0016",
+      "note": "A3",
+      "frequency": 220.0,
+      "timestamp": 28571.429,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0077",
+      "note": "E5",
+      "frequency": 659.2551,
+      "timestamp": 28571.429,
+      "duration": 514.286,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0076",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 29642.857,
+      "duration": 571.429,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0078",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 29642.857,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0132",
+      "note": "A3",
+      "frequency": 220.0,
+      "timestamp": 30000.0,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0017",
+      "note": "E4",
+      "frequency": 329.6276,
+      "timestamp": 30000.0,
+      "duration": 1178.571,
+      "velocity": 0.075
+    },
+    {
+      "id": "underwater-0079",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 30714.286,
+      "duration": 857.143,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0018",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 31428.571,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0135",
+      "note": "D4",
+      "frequency": 293.6648,
+      "timestamp": 31428.571,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0081",
+      "note": "E5",
+      "frequency": 659.2551,
+      "timestamp": 31428.571,
+      "duration": 514.286,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0080",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 32500.0,
+      "duration": 571.429,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0082",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 32500.0,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0083",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 33571.429,
+      "duration": 857.143,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0019",
+      "note": "B2",
+      "frequency": 123.4708,
+      "timestamp": 34285.714,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0085",
+      "note": "F#4",
+      "frequency": 369.9944,
+      "timestamp": 34642.857,
+      "duration": 571.429,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0084",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 35357.143,
+      "duration": 571.429,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0020",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 35714.286,
+      "duration": 1178.571,
+      "velocity": 0.075
+    },
+    {
+      "id": "underwater-0136",
+      "note": "A3",
+      "frequency": 220.0,
+      "timestamp": 35714.286,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0086",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 36071.429,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0021",
+      "note": "D3",
+      "frequency": 146.8324,
+      "timestamp": 37142.857,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0087",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 37142.857,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0089",
+      "note": "F#4",
+      "frequency": 369.9944,
+      "timestamp": 37500.0,
+      "duration": 571.429,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0088",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 38571.429,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0090",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 38928.571,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0137",
+      "note": "B3",
+      "frequency": 246.9417,
+      "timestamp": 40000.0,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0022",
+      "note": "E4",
+      "frequency": 329.6276,
+      "timestamp": 40000.0,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0091",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 40000.0,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0093",
+      "note": "F#4",
+      "frequency": 369.9944,
+      "timestamp": 40357.143,
+      "duration": 571.429,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0023",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 41428.571,
+      "duration": 1178.571,
+      "velocity": 0.075
+    },
+    {
+      "id": "underwater-0092",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 41428.571,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0094",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 41785.714,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0024",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 42857.143,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0095",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 42857.143,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0097",
+      "note": "F#4",
+      "frequency": 369.9944,
+      "timestamp": 43214.286,
+      "duration": 571.429,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0138",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 44285.714,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0096",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 44285.714,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0098",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 44642.857,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0025",
+      "note": "B2",
+      "frequency": 123.4708,
+      "timestamp": 45714.286,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0141",
+      "note": "B3",
+      "frequency": 246.9417,
+      "timestamp": 45714.286,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0099",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 45714.286,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0101",
+      "note": "E5",
+      "frequency": 659.2551,
+      "timestamp": 45714.286,
+      "duration": 514.286,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0102",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 46785.714,
+      "duration": 442.857,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0026",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 47142.857,
+      "duration": 1178.571,
+      "velocity": 0.075
+    },
+    {
+      "id": "underwater-0100",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 47142.857,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0103",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 47500.0,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0027",
+      "note": "D3",
+      "frequency": 146.8324,
+      "timestamp": 48571.429,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0139",
+      "note": "E4",
+      "frequency": 329.6276,
+      "timestamp": 48571.429,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0106",
+      "note": "E5",
+      "frequency": 659.2551,
+      "timestamp": 48571.429,
+      "duration": 514.286,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0104",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 48928.571,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0107",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 49642.857,
+      "duration": 442.857,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0142",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 50000.0,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0105",
+      "note": "F#4",
+      "frequency": 369.9944,
+      "timestamp": 50000.0,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0108",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 50357.143,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0028",
+      "note": "A3",
+      "frequency": 220.0,
+      "timestamp": 51428.571,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0111",
+      "note": "E5",
+      "frequency": 659.2551,
+      "timestamp": 51428.571,
+      "duration": 514.286,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0109",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 51785.714,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0112",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 52500.0,
+      "duration": 442.857,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0140",
+      "note": "A3",
+      "frequency": 220.0,
+      "timestamp": 52857.143,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0029",
+      "note": "E4",
+      "frequency": 329.6276,
+      "timestamp": 52857.143,
+      "duration": 1178.571,
+      "velocity": 0.075
+    },
+    {
+      "id": "underwater-0110",
+      "note": "F#4",
+      "frequency": 369.9944,
+      "timestamp": 52857.143,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0113",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 53214.286,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0030",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 54285.714,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0143",
+      "note": "D4",
+      "frequency": 293.6648,
+      "timestamp": 54285.714,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0116",
+      "note": "E5",
+      "frequency": 659.2551,
+      "timestamp": 54285.714,
+      "duration": 514.286,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0114",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 54642.857,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0117",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 55357.143,
+      "duration": 442.857,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0115",
+      "note": "F#4",
+      "frequency": 369.9944,
+      "timestamp": 55714.286,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0118",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 56071.429,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0031",
+      "note": "B2",
+      "frequency": 123.4708,
+      "timestamp": 57142.857,
+      "duration": 2514.286,
+      "velocity": 0.19
+    },
+    {
+      "id": "underwater-0119",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 57500.0,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0121",
+      "note": "A4",
+      "frequency": 440.0,
+      "timestamp": 57500.0,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0032",
+      "note": "F#3",
+      "frequency": 184.9972,
+      "timestamp": 58571.429,
+      "duration": 1178.571,
+      "velocity": 0.075
+    },
+    {
+      "id": "underwater-0144",
+      "note": "A3",
+      "frequency": 220.0,
+      "timestamp": 58571.429,
+      "duration": 2500.0,
+      "velocity": 0.045
+    },
+    {
+      "id": "underwater-0120",
+      "note": "F#4",
+      "frequency": 369.9944,
+      "timestamp": 58571.429,
+      "duration": 714.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0122",
+      "note": "B4",
+      "frequency": 493.8833,
+      "timestamp": 58571.429,
+      "duration": 514.286,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0123",
+      "note": "D5",
+      "frequency": 587.3295,
+      "timestamp": 59642.857,
+      "duration": 785.714,
+      "velocity": 0.17
+    },
+    {
+      "id": "underwater-0124",
+      "note": "E5",
+      "frequency": 659.2551,
+      "timestamp": 61428.571,
+      "duration": 571.429,
+      "velocity": 0.14
+    },
+    {
+      "id": "underwater-0145",
+      "note": "B3",
+      "frequency": 246.9417,
+      "timestamp": 62857.143,
+      "duration": 2500.0,
+      "velocity": 0.045
+    }
+  ],
+  "bpm": 84
+}

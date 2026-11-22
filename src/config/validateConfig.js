@@ -35,6 +35,8 @@ export function validateGameConfig(config) {
       index === 0 || threshold >= thresholds[index - 1],
     ) &&
     positiveFinite(player?.collisionRadiusScale) &&
+    unitInterval(player?.collisionAspectRatio) &&
+    player.collisionAspectRatio > 0 &&
     positiveFinite(fishPopulation?.spawnIntervalSeconds) &&
     Number.isInteger(fishPopulation?.populationLimit) &&
     fishPopulation.populationLimit > 0 &&

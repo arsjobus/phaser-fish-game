@@ -64,6 +64,9 @@ export function createAudioController(backend, config) {
       if (!state.available || state.musicPlaying) return;
       state.musicPlaying = true;
       state.scheduler = createMusicScheduler();
+      if (typeof backend.startMusic === 'function') {
+        safeCall(() => backend.startMusic(config.musicVolume));
+      }
     },
 
     stopMusic() {
