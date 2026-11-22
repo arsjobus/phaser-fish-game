@@ -19,7 +19,17 @@ export function validateGameConfig(config) {
     nonNegativeFinite(player?.drag) &&
     positiveFinite(fishPopulation?.spawnIntervalSeconds) &&
     Number.isInteger(fishPopulation?.populationLimit) &&
-    fishPopulation.populationLimit > 0;
+    fishPopulation.populationLimit > 0 &&
+    positiveFinite(fishPopulation?.minimumSize) &&
+    positiveFinite(fishPopulation?.maximumSize) &&
+    fishPopulation.maximumSize >= fishPopulation.minimumSize &&
+    positiveFinite(fishPopulation?.minimumSpeed) &&
+    positiveFinite(fishPopulation?.maximumSpeed) &&
+    fishPopulation.maximumSpeed >= fishPopulation.minimumSpeed &&
+    Array.isArray(fishPopulation?.visualVariants) &&
+    fishPopulation.visualVariants.length > 0 &&
+    fishPopulation.visualVariants.every((variant) => typeof variant === 'string') &&
+    new Set(fishPopulation.visualVariants).size === fishPopulation.visualVariants.length;
 
   return {
     valid,

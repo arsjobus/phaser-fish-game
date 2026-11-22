@@ -15,5 +15,10 @@ export const gameConfig = Object.freeze({
   fishPopulation: Object.freeze({
     spawnIntervalSeconds: 1.2,
     populationLimit: 24,
+    minimumSize: 20,
+    maximumSize: 76,
+    minimumSpeed: 52,
+    maximumSpeed: 118,
+    visualVariants: Object.freeze(['blue', 'purple', 'pink', 'gold']),
   }),
 });

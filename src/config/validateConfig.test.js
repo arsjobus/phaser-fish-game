@@ -28,6 +28,24 @@ describe('game configuration', () => {
     expect(validateGameConfig(invalid).valid).toBe(false);
   });
 
+  it('rejects invalid fish distributions and visual variants', () => {
+    const invalidSizeRange = {
+      ...gameConfig,
+      fishPopulation: {
+        ...gameConfig.fishPopulation,
+        minimumSize: 80,
+        maximumSize: 20,
+      },
+    };
+    const invalidVariants = {
+      ...gameConfig,
+      fishPopulation: { ...gameConfig.fishPopulation, visualVariants: [] },
+    };
+
+    expect(validateGameConfig(invalidSizeRange).valid).toBe(false);
+    expect(validateGameConfig(invalidVariants).valid).toBe(false);
+  });
+
   it('rejects missing configuration safely', () => {
     expect(validateGameConfig(undefined).valid).toBe(false);
   });

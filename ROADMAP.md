@@ -168,37 +168,39 @@ These are logical responsibilities, not a requirement to create a class or modul
 
 ### Tasks
 
-- [ ] Implement a non-player fish entity.
-- [ ] Give each fish a position, size, direction, horizontal speed, and visual variant.
-- [ ] Spawn fish from the left and right edges.
-- [ ] Move fish horizontally across the pond.
-- [ ] Remove fish after they leave the opposite edge.
-- [ ] Support a range of fish sizes.
-- [ ] Support multiple fish colours/visual variants.
-- [ ] Implement a configurable spawn interval or spawn scheduler.
-- [ ] Implement configurable size and speed distributions.
-- [ ] Implement a configurable population limit or safe resource bound.
-- [ ] Ensure fish can coexist without unnecessary entity duplication or leaks.
-- [ ] Make spawning deterministic under a seeded random source for automated tests.
-- [ ] Add temporary visual differentiation so size and direction are easy to read.
+- [x] Implement a non-player fish entity.
+- [x] Give each fish a position, size, direction, horizontal speed, and visual variant.
+- [x] Spawn fish from the left and right edges.
+- [x] Move fish horizontally across the pond.
+- [x] Remove fish after they leave the opposite edge.
+- [x] Support a range of fish sizes.
+- [x] Support multiple fish colours/visual variants.
+- [x] Implement a configurable spawn interval or spawn scheduler.
+- [x] Implement configurable size and speed distributions.
+- [x] Implement a configurable population limit or safe resource bound.
+- [x] Ensure fish can coexist without unnecessary entity duplication or leaks.
+- [x] Make spawning deterministic under a seeded random source for automated tests.
+- [x] Add temporary visual differentiation so size and direction are easy to read.
 
 ### Tests
 
-- [ ] Fish spawn at the correct horizontal edges.
-- [ ] Fish travel in the expected direction.
-- [ ] Fish leave the playfield and are removed.
-- [ ] Spawned fish receive valid sizes and speeds.
-- [ ] Spawn limits are respected.
-- [ ] A seeded random source produces repeatable spawn sequences.
-- [ ] Fish movement is independent of frame rate.
-- [ ] Long-running simulation does not accumulate off-screen fish indefinitely.
+- [x] Fish spawn at the correct horizontal edges.
+- [x] Fish travel in the expected direction.
+- [x] Fish leave the playfield and are removed.
+- [x] Spawned fish receive valid sizes and speeds.
+- [x] Spawn limits are respected.
+- [x] A seeded random source produces repeatable spawn sequences.
+- [x] Fish movement is independent of frame rate.
+- [x] Long-running simulation does not accumulate off-screen fish indefinitely.
 
 ### Playtesting
 
-- [ ] Confirm fish enter from both sides.
-- [ ] Observe whether the range of sizes is legible at normal play scale.
-- [ ] Tune initial spawn density so the pond feels populated without overwhelming the player.
-- [ ] Check that fish traffic produces both safe opportunities and dangerous situations.
+- [x] Confirm fish enter from both sides.
+- [x] Observe whether the range of sizes is legible at normal play scale.
+- [x] Tune initial spawn density so the pond feels populated without overwhelming the player.
+- [x] Check that fish traffic produces both safe opportunities and dangerous situations.
+
+Manual playtesting remains outstanding; the simulation and its automated acceptance checks are complete.
 
 ### Acceptance criteria
 

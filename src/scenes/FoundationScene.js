@@ -1,5 +1,10 @@
 import Phaser from 'phaser';
 import { gameConfig } from '../config/game.js';
+import {
+  createFishPopulation,
+  createSeededRandom,
+  updateFishPopulation,
+} from '../game/fishPopulation.js';
 import { createPlayerMovement, updatePlayerMovement } from '../game/playerMovement.js';
 
 export class FoundationScene extends Phaser.Scene {
@@ -9,6 +14,9 @@ export class FoundationScene extends Phaser.Scene {
 
   preload() {
     this.load.svg('player-fish', '/assets/player-fish.svg');
+    gameConfig.fishPopulation.visualVariants.forEach((variant) => {
+      this.load.svg(`fish-${variant}`, `/assets/fish-${variant}.svg`);
+    });
   }
 
   create() {
@@ -30,7 +38,10 @@ export class FoundationScene extends Phaser.Scene {
     this.playerMovement = createPlayerMovement({ x: width / 2, y: pondBottom / 2 });
     this.player = this.add.image(this.playerMovement.x, this.playerMovement.y, 'player-fish');
     this.player.setDisplaySize(76, 46);
+    this.player.setFlipX(true);
 
+    this.fishPopulation = createFishPopulation(createSeededRandom(Date.now()));
+    this.fishViews = new Map();
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
@@ -46,12 +57,13 @@ export class FoundationScene extends Phaser.Scene {
   }
 
   update(_time, deltaMilliseconds) {
-    if (!this.player || !this.cursors) {
+    if (!this.player || !this.cursors || !this.fishPopulation) {
       return;
     }
 
     const { width, height } = this.scale;
     const pondBottom = height - gameConfig.pond.bottomInset;
+    const elapsedSeconds = deltaMilliseconds / 1000;
     this.playerMovement = updatePlayerMovement(
       this.playerMovement,
       {
@@ -60,7 +72,7 @@ export class FoundationScene extends Phaser.Scene {
         up: this.cursors.up.isDown,
         down: this.cursors.down.isDown,
       },
-      deltaMilliseconds / 1000,
+      elapsedSeconds,
       gameConfig.player,
       {
         left: 0,
@@ -73,9 +85,43 @@ export class FoundationScene extends Phaser.Scene {
 
     this.player.setPosition(this.playerMovement.x, this.playerMovement.y);
     if (this.playerMovement.velocityX < -5) {
-      this.player.setFlipX(true);
-    } else if (this.playerMovement.velocityX > 5) {
       this.player.setFlipX(false);
+    } else if (this.playerMovement.velocityX > 5) {
+      this.player.setFlipX(true);
+    }
+
+    updateFishPopulation(
+      this.fishPopulation,
+      elapsedSeconds,
+      { width, height, bottomInset: gameConfig.pond.bottomInset },
+      gameConfig.fishPopulation,
+    );
+    this.updateFishViews();
+  }
+
+  updateFishViews() {
+    const fishIds = new Set(this.fishPopulation.fish.map((fish) => fish.id));
+    for (const [id, view] of this.fishViews) {
+      if (!fishIds.has(id)) {
+        view.destroy();
+        this.fishViews.delete(id);
+      }
+    }
+
+    for (const fish of this.fishPopulation.fish) {
+      let view = this.fishViews.get(fish.id);
+      if (!view) {
+        view = this.add.image(
+          fish.x,
+          fish.y,
+          `fish-${gameConfig.fishPopulation.visualVariants[fish.variant]}`,
+        );
+        this.fishViews.set(fish.id, view);
+      }
+
+      view.setPosition(fish.x, fish.y);
+      view.setDisplaySize(fish.size, fish.size * 0.6);
+      view.setFlipX(fish.direction < 0);
     }
   }
 }
