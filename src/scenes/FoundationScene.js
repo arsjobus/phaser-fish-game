@@ -5,7 +5,7 @@ import {
   createSeededRandom,
   updateFishPopulation,
 } from '../game/fishPopulation.js';
-import { formatScore, updateRunProgress } from '../game/runProgress.js';
+import { updateRunProgress } from '../game/runProgress.js';
 import { createPlayerMovement, updatePlayerMovement } from '../game/playerMovement.js';
 import {
   createRunState,
@@ -17,6 +17,36 @@ import {
   transitionGameState,
 } from '../game/gameState.js';
 import { loadHighScores, saveHighScore } from '../game/highScores.js';
+import { createAudioController } from '../game/audioController.js';
+import {
+  clampFrameSeconds,
+  createFocusPause,
+  findMissingTextureKeys,
+  focusGained,
+  focusLost,
+  growthPulseScale,
+  inputReceived,
+  resetFocusPause,
+  swimWiggle,
+} from '../game/presentation.js';
+import { createSynthBackend } from '../audio/synthBackend.js';
+import { createPondBackdrop } from '../presentation/pondBackdrop.js';
+import {
+  buildGameOverScreen,
+  buildHud,
+  buildPauseOverlay,
+  buildSoundControls,
+  buildTitleScreen,
+  buildVictoryScreen,
+  updateHud,
+} from '../presentation/screens.js';
+
+const PLAYER_TEXTURE = 'player-fish';
+const FISH_ASPECT = 0.6;
+
+function fishTextureKey(variantIndex) {
+  return `fish-${gameConfig.fishPopulation.visualVariants[variantIndex]}`;
+}
 
 export class FoundationScene extends Phaser.Scene {
   constructor() {
@@ -24,33 +54,36 @@ export class FoundationScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.svg(
-      'player-fish',
-      `${import.meta.env.BASE_URL}assets/player-fish.svg`,
-    );
-    gameConfig.fishPopulation.visualVariants.forEach((variant) => {
-      this.load.svg(
-        `fish-${variant}`,
-        `${import.meta.env.BASE_URL}assets/fish-${variant}.svg`,
-      );
+    // Phaser's SVG processing throws on files that are not valid SVG, which
+    // would stall the loader. Route that into its normal error path so the
+    // game starts and a fallback texture is drawn instead.
+    this.load.on(Phaser.Loader.Events.ADD, (_key, type, _loader, file) => {
+      if (type !== 'svg') return;
+      const process = file.onProcess.bind(file);
+      file.onProcess = () => {
+        try {
+          process();
+        } catch (error) {
+          file.onProcessError();
+        }
+      };
     });
+
+    // Rasterise the SVGs well above their display size so the largest fish
+    // (176px) stays crisp.
+    const raster = { width: 300, height: 180 };
+    const base = import.meta.env.BASE_URL;
+    this.load.svg(PLAYER_TEXTURE, `${base}assets/player-fish.svg`, raster);
+    gameConfig.fishPopulation.visualVariants.forEach((variant) => {
+      this.load.svg(`fish-${variant}`, `${base}assets/fish-${variant}.svg`, raster);
+    });
+    // A missing or corrupt asset must not stop the game; fallbacks are made in
+    // create() for any texture that did not load.
   }
 
   create() {
-    const { width, height } = this.scale;
-    const pondBottom = height - gameConfig.pond.bottomInset;
-
-    this.cameras.main.setBackgroundColor(gameConfig.display.backgroundColor);
-
-    this.add.rectangle(width / 2, pondBottom + gameConfig.pond.bottomInset / 2, width, gameConfig.pond.bottomInset, 0xc6a96d);
-    this.add.ellipse(width * 0.25, pondBottom - 4, 290, 24, 0x8e7048);
-    this.add.ellipse(width * 0.72, pondBottom - 2, 360, 28, 0x9a7a4e);
-    this.add.ellipse(width * 0.92, pondBottom - 8, 220, 30, 0x8b6a43);
-
-    this.addSeaweed(105, pondBottom, 0x2d8f3a, 82);
-    this.addSeaweed(320, pondBottom, 0x35a34a, 70);
-    this.addSeaweed(690, pondBottom, 0x25863c, 92);
-    this.addSeaweed(870, pondBottom, 0x399b48, 66);
+    this.ensureFishTextures();
+    this.backdrop = createPondBackdrop(this);
 
     this.cursors = this.input.keyboard.createCursorKeys();
     this.enterKey = this.input.keyboard.addKey(
@@ -59,117 +92,124 @@ export class FoundationScene extends Phaser.Scene {
     this.spaceKey = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE,
     );
+
     this.applicationState = createGameState();
     this.highScores = loadHighScores(window.localStorage);
     this.titleViews = [];
     this.endViews = [];
     this.player = null;
-    this.createTitle();
+    this.fishViews = new Map();
+    this.eatenIdsThisFrame = new Set();
+    this.pulseStartedAt = -Infinity;
+    this.hud = null;
+
+    this.audio = createAudioController(
+      createSynthBackend(window),
+      gameConfig.audio,
+    );
+    this.soundControls = buildSoundControls(this, this.audio);
+
+    this.focusPause = createFocusPause();
+    this.pauseOverlay = buildPauseOverlay(this);
+    this.pauseOverlay.setVisible(false);
+    this.registerInputHandlers();
+
+    this.titleViews = buildTitleScreen(this);
   }
 
-  createHud() {
-    this.scoreText = this.add
-      .text(this.scale.width / 2, 18, '0', {
-        fontFamily: 'Arial',
-        fontSize: '24px',
-        fontStyle: 'bold',
-        color: '#fff4d6',
-        align: 'center',
-      })
-      .setOrigin(0.5, 0);
-    this.scoreText.setDepth(50);
-
-    this.eatenIcon = this.add
-      .image(18, 24, 'player-fish')
-      .setDisplaySize(30, 18)
-      .setOrigin(0, 0.5)
-      .setFlipX(true);
-    this.eatenIcon.setDepth(50);
-    this.eatenText = this.add
-      .text(54, 18, '0', {
-        fontFamily: 'Arial',
-        fontSize: '20px',
-        fontStyle: 'bold',
-        color: '#fff4d6',
-      })
-      .setOrigin(0, 0);
-    this.eatenText.setDepth(50);
+  // Draws a simple stand-in for any fish texture that failed to load, so a
+  // missing asset degrades to a plain coloured fish instead of a crash.
+  ensureFishTextures() {
+    const colors = gameConfig.presentation.fallbackColors;
+    const required = [
+      PLAYER_TEXTURE,
+      ...gameConfig.fishPopulation.visualVariants.map((variant) => `fish-${variant}`),
+    ];
+    const missing = findMissingTextureKeys(required, (key) => this.textures.exists(key));
+    missing.forEach((key) => {
+      const name = key === PLAYER_TEXTURE ? 'player' : key.replace(/^fish-/, '');
+      const color = colors[name] ?? 0x888888;
+      const graphics = this.make.graphics({ x: 0, y: 0, add: false });
+      graphics.fillStyle(color, 1);
+      graphics.fillEllipse(130, 90, 200, 120);
+      graphics.fillTriangle(30, 90, 0, 40, 0, 140);
+      graphics.fillStyle(0xfff5df, 1);
+      graphics.fillCircle(210, 75, 20);
+      graphics.fillStyle(0x182a3a, 1);
+      graphics.fillCircle(216, 78, 10);
+      graphics.generateTexture(key, 300, 180);
+      graphics.destroy();
+    });
   }
 
-  createTitle() {
-    const centerX = this.scale.width / 2;
-    this.destroyViews(this.titleViews);
+  registerInputHandlers() {
+    this.input.keyboard.on('keydown', (event) => {
+      if (event.code === 'KeyM') {
+        this.audio.resume();
+        this.audio.toggleMuteAll();
+        this.soundControls.refresh();
+        return;
+      }
+      this.audio.resume();
+      this.resumeFromFocusPause();
+    });
+    this.input.on('pointerdown', () => {
+      this.audio.resume();
+      this.resumeFromFocusPause();
+    });
 
-    const title = this.add
-      .text(centerX, 42, '! FISH FOOD !', {
-        fontFamily: 'Arial',
-        fontSize: '54px',
-        fontStyle: 'bold',
-        color: '#fff4d6',
-        stroke: '#087fa8',
-        strokeThickness: 6,
-      })
-      .setOrigin(0.5);
+    const lost = () => this.handleFocusLost();
+    const gained = () => this.handleFocusGained();
+    const events = this.game.events;
+    events.on(Phaser.Core.Events.BLUR, lost);
+    events.on(Phaser.Core.Events.HIDDEN, lost);
+    events.on(Phaser.Core.Events.FOCUS, gained);
+    events.on(Phaser.Core.Events.VISIBLE, gained);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      events.off(Phaser.Core.Events.BLUR, lost);
+      events.off(Phaser.Core.Events.HIDDEN, lost);
+      events.off(Phaser.Core.Events.FOCUS, gained);
+      events.off(Phaser.Core.Events.VISIBLE, gained);
+    });
+  }
 
-    const instruction = this.add
-      .text(
-        centerX,
-        112,
-        'Eat smaller fish to grow bigger!\n\n'
-          + "Don't get eaten by bigger fish!\n\n"
-          + 'Use the arrow keys to control movement',
-        {
-          fontFamily: 'Arial',
-          fontSize: '25px',
-          fontStyle: 'bold',
-          color: '#087fa8',
-          align: 'center',
-          lineSpacing: 7,
-        },
-      )
-      .setOrigin(0.5);
+  handleFocusLost() {
+    // Drop held keys so a key released while unfocused is not "stuck".
+    this.input.keyboard.resetKeys();
+    this.audio.suspend();
+    const playing = this.applicationState.status === GAME_STATES.playing;
+    focusLost(this.focusPause, playing);
+    if (this.focusPause.paused) {
+      this.pauseOverlay.setReady(false);
+      this.pauseOverlay.setVisible(true);
+    }
+  }
 
-    const arrowKeys = this.add
-      .text(centerX, 300, '  ▲\n◀ ▼ ▶', {
-        fontFamily: 'Arial',
-        fontSize: '32px',
-        fontStyle: 'bold',
-        color: '#087fa8',
-        backgroundColor: '#fff4d6',
-        align: 'center',
-        padding: { x: 12, y: 7 },
-      })
-      .setOrigin(0.5);
+  handleFocusGained() {
+    this.input.keyboard.resetKeys();
+    this.audio.resume();
+    focusGained(this.focusPause);
+    if (this.focusPause.paused) {
+      this.pauseOverlay.setReady(true);
+    }
+  }
 
-    const detail = this.add
-      .text(
-        centerX,
-        365,
-        'The bigger the fish, the more you will grow,\nand the more points you will receive!',
-        {
-          fontFamily: 'Arial',
-          fontSize: '22px',
-          fontStyle: 'bold',
-          color: '#087fa8',
-          align: 'center',
-          lineSpacing: 6,
-        },
-      )
-      .setOrigin(0.5);
+  resumeFromFocusPause() {
+    if (inputReceived(this.focusPause)) {
+      this.input.keyboard.resetKeys();
+      this.pauseOverlay.setVisible(false);
+    }
+  }
 
-    const start = this.add
-      .text(centerX, 445, 'PRESS ENTER, SPACE, OR AN ARROW KEY', {
-        fontFamily: 'Arial',
-        fontSize: '18px',
-        fontStyle: 'bold',
-        color: '#087fa8',
-        align: 'center',
-        backgroundColor: '#fff4d6',
-        padding: { x: 10, y: 6 },
-      })
-      .setOrigin(0.5);
-
-    this.titleViews = [title, instruction, arrowKeys, detail, start];
+  anyStartKeyPressed() {
+    return (
+      Phaser.Input.Keyboard.JustDown(this.enterKey) ||
+      Phaser.Input.Keyboard.JustDown(this.spaceKey) ||
+      Phaser.Input.Keyboard.JustDown(this.cursors.up) ||
+      Phaser.Input.Keyboard.JustDown(this.cursors.down) ||
+      Phaser.Input.Keyboard.JustDown(this.cursors.left) ||
+      Phaser.Input.Keyboard.JustDown(this.cursors.right)
+    );
   }
 
   startRun() {
@@ -178,11 +218,14 @@ export class FoundationScene extends Phaser.Scene {
     this.destroyViews(this.endViews);
     this.endViews = [];
     transitionGameState(this.applicationState, 'start');
+    resetFocusPause(this.focusPause);
+    this.pauseOverlay.setVisible(false);
 
     if (this.player) {
       for (const view of this.fishViews.values()) {
         view.destroy();
       }
+      this.tweens.killTweensOf(this.player);
       this.player.destroy();
     }
 
@@ -192,28 +235,28 @@ export class FoundationScene extends Phaser.Scene {
       x: width / 2,
       y: pondBottom / 2,
     });
-    this.player = this.add.image(
-      this.playerMovement.x,
-      this.playerMovement.y,
-      'player-fish',
-    );
+    this.player = this.add
+      .image(this.playerMovement.x, this.playerMovement.y, PLAYER_TEXTURE)
+      .setDepth(5);
     this.runState = createRunState(gameConfig.player);
-    this.player.setDisplaySize(
-      this.runState.size,
-      this.runState.size * 0.6,
-    );
+    this.pulseStartedAt = -Infinity;
+    this.applyPlayerTransform(0);
     this.player.setFlipX(true);
 
     this.fishPopulation = createFishPopulation(createSeededRandom(Date.now()));
     this.fishViews = new Map();
-    if (!this.scoreText) {
-      this.createHud();
+    this.eatenIdsThisFrame = new Set();
+    if (!this.hud) {
+      this.hud = buildHud(this);
     } else {
-      this.scoreText.setVisible(true);
-      this.eatenIcon.setVisible(true);
-      this.eatenText.setVisible(true);
-      this.updateHud();
+      this.hud.score.setVisible(true);
+      this.hud.eatenIcon.setVisible(true);
+      this.hud.eatenText.setVisible(true);
     }
+    updateHud(this.hud, this.runState);
+
+    this.audio.resume();
+    this.audio.startMusic();
   }
 
   replayRun() {
@@ -224,32 +267,17 @@ export class FoundationScene extends Phaser.Scene {
   destroyViews(views) {
     for (const view of views) {
       if (view && view.destroy) {
+        this.tweens.killTweensOf(view);
         view.destroy();
       }
     }
   }
 
-  addSeaweed(x, bottom, color, height) {
-    const graphics = this.add.graphics();
-    graphics.lineStyle(8, color, 1);
-    graphics.beginPath();
-    graphics.moveTo(x, bottom);
-    graphics.lineTo(x - 10, bottom - height * 0.45);
-    graphics.lineTo(x + 6, bottom - height * 0.72);
-    graphics.lineTo(x - 4, bottom - height);
-    graphics.strokePath();
-  }
+  update(time, deltaMilliseconds) {
+    this.audio.update();
 
-  update(_time, deltaMilliseconds) {
     if (this.applicationState.status === GAME_STATES.title) {
-      if (
-        Phaser.Input.Keyboard.JustDown(this.enterKey) ||
-        Phaser.Input.Keyboard.JustDown(this.spaceKey) ||
-        Phaser.Input.Keyboard.JustDown(this.cursors.up) ||
-        Phaser.Input.Keyboard.JustDown(this.cursors.down) ||
-        Phaser.Input.Keyboard.JustDown(this.cursors.left) ||
-        Phaser.Input.Keyboard.JustDown(this.cursors.right)
-      ) {
+      if (this.anyStartKeyPressed()) {
         this.startRun();
       }
       return;
@@ -259,14 +287,7 @@ export class FoundationScene extends Phaser.Scene {
       this.applicationState.status === GAME_STATES.gameOver ||
       this.applicationState.status === GAME_STATES.victory
     ) {
-      if (
-        Phaser.Input.Keyboard.JustDown(this.enterKey) ||
-        Phaser.Input.Keyboard.JustDown(this.spaceKey) ||
-        Phaser.Input.Keyboard.JustDown(this.cursors.up) ||
-        Phaser.Input.Keyboard.JustDown(this.cursors.down) ||
-        Phaser.Input.Keyboard.JustDown(this.cursors.left) ||
-        Phaser.Input.Keyboard.JustDown(this.cursors.right)
-      ) {
+      if (this.anyStartKeyPressed()) {
         this.replayRun();
       }
       return;
@@ -281,10 +302,16 @@ export class FoundationScene extends Phaser.Scene {
     ) {
       return;
     }
+    if (this.focusPause.paused) {
+      return;
+    }
 
     const { width, height } = this.scale;
     const pondBottom = height - gameConfig.pond.bottomInset;
-    const elapsedSeconds = deltaMilliseconds / 1000;
+    const elapsedSeconds = clampFrameSeconds(
+      deltaMilliseconds,
+      gameConfig.presentation.maxFrameSeconds,
+    );
     updateRunProgress(this.runState, elapsedSeconds);
     this.playerMovement = updatePlayerMovement(
       this.playerMovement,
@@ -318,7 +345,9 @@ export class FoundationScene extends Phaser.Scene {
       { width, height, bottomInset: gameConfig.pond.bottomInset },
       gameConfig.fishPopulation,
     );
+
     const eatenBefore = this.runState.eatenCount;
+    const idsBefore = this.fishPopulation.fish.map((fish) => fish.id);
     resolveFishCollisions(
       this.playerMovement,
       this.runState,
@@ -326,40 +355,53 @@ export class FoundationScene extends Phaser.Scene {
       gameConfig.player,
     );
 
+    this.eatenIdsThisFrame = new Set();
     if (this.runState.eatenCount > eatenBefore) {
+      const remaining = new Set(this.fishPopulation.fish.map((fish) => fish.id));
+      idsBefore.forEach((id) => {
+        if (!remaining.has(id)) this.eatenIdsThisFrame.add(id);
+      });
       this.showEatingFeedback();
+      this.audio.playEffect('eat');
     }
+
     if (this.runState.status === 'dead') {
-      this.highScores = saveHighScore(
-        window.localStorage,
-        this.runState.score,
-      );
+      this.highScores = saveHighScore(window.localStorage, this.runState.score);
       this.showDeathFeedback();
       transitionGameState(this.applicationState, 'dead');
-    } else if (
-      this.runState.size >= gameConfig.player.maximumSize
-    ) {
-      this.highScores = saveHighScore(
-        window.localStorage,
-        this.runState.score,
-      );
+    } else if (this.runState.size >= gameConfig.player.maximumSize) {
+      this.highScores = saveHighScore(window.localStorage, this.runState.score);
       this.runState.status = 'victory';
       this.showVictoryFeedback();
       transitionGameState(this.applicationState, 'victory');
     }
 
-    this.player.setDisplaySize(this.runState.size, this.runState.size * 0.6);
-    this.updateHud();
-    this.updateFishViews();
+    this.applyPlayerTransform(time / 1000);
+    updateHud(this.hud, this.runState);
+    this.updateFishViews(time / 1000);
   }
 
-  updateHud() {
-    this.scoreText.setText(formatScore(this.runState.score));
-    this.eatenText.setText(String(this.runState.eatenCount));
+  // Display-only transform. Size, wiggle, and pulse change how the fish is
+  // drawn; collision always uses the gameplay size in `runState`.
+  applyPlayerTransform(timeSeconds) {
+    const size = this.runState.size;
+    const wiggle = swimWiggle(timeSeconds, 0, size, gameConfig.presentation.swimWiggle);
+    const pulse = growthPulseScale(
+      this.time.now - this.pulseStartedAt,
+      gameConfig.presentation.growthPulse,
+    );
+    this.player.setDisplaySize(
+      size * wiggle.scaleX * pulse,
+      size * FISH_ASPECT * wiggle.scaleY * pulse,
+    );
+    this.player.setAngle(wiggle.angleDegrees);
   }
 
   showEatingFeedback() {
-    const glow = this.add.circle(this.player.x, this.player.y, this.runState.size * 0.38, 0xfff2a6, 0.45);
+    this.pulseStartedAt = this.time.now;
+    const glow = this.add
+      .circle(this.player.x, this.player.y, this.runState.size * 0.38, 0xfff2a6, 0.45)
+      .setDepth(4);
     this.tweens.add({
       targets: glow,
       alpha: 0,
@@ -370,161 +412,70 @@ export class FoundationScene extends Phaser.Scene {
   }
 
   showDeathFeedback() {
-    const overlay = this.add.rectangle(
-      this.scale.width / 2,
-      this.scale.height / 2,
-      this.scale.width,
-      this.scale.height,
-      0x3b1f24,
-      0.35,
-    );
-    overlay.setDepth(100);
-    const title = this.add
-      .text(this.scale.width / 2, 205, 'GAME OVER', {
-        fontFamily: 'Arial',
-        fontSize: '52px',
-        fontStyle: 'bold',
-        color: '#fff4d6',
-      })
-      .setOrigin(0.5)
-      .setDepth(101);
-    const finalScore = this.add
-      .text(
-        this.scale.width / 2,
-        270,
-        `Final score: ${formatScore(this.runState.score)}`,
-        {
-          fontFamily: 'Arial',
-          fontSize: '26px',
-          fontStyle: 'bold',
-          color: '#fff4d6',
-        },
-      )
-      .setOrigin(0.5)
-      .setDepth(101);
-    const highScore = this.add
-      .text(
-        this.scale.width / 2,
-        320,
-        `High score: ${formatScore(this.highScores[0] ?? 0)}`,
-        {
-          fontFamily: 'Arial',
-          fontSize: '22px',
-          fontStyle: 'bold',
-          color: '#fff4d6',
-        },
-      )
-      .setOrigin(0.5)
-      .setDepth(101);
-    const replay = this.add
-      .text(
-        this.scale.width / 2,
-        380,
-        'PRESS ENTER, SPACE, OR AN ARROW KEY TO REPLAY',
-        {
-          fontFamily: 'Arial',
-          fontSize: '18px',
-          fontStyle: 'bold',
-          color: '#fff4d6',
-          backgroundColor: '#087fa8',
-          padding: { x: 10, y: 6 },
-        },
-      )
-      .setOrigin(0.5)
-      .setDepth(101);
-    this.endViews = [overlay, title, finalScore, highScore, replay];
+    this.audio.stopMusic();
+    this.audio.playEffect('death');
+    this.player.setTint(0xff7777);
+    this.tweens.add({
+      targets: this.player,
+      alpha: 0.35,
+      duration: 450,
+      ease: 'Sine.easeOut',
+    });
+    this.cameras.main.shake(140, 0.004);
+    this.endViews = buildGameOverScreen(this, {
+      score: this.runState.score,
+      highScore: this.highScores[0] ?? 0,
+    });
   }
 
   showVictoryFeedback() {
-    const overlay = this.add.rectangle(
-      this.scale.width / 2,
-      this.scale.height / 2,
-      this.scale.width,
-      this.scale.height,
-      0x087fa8,
-      0.88,
-    );
-    overlay.setDepth(100);
-    const title = this.add
-      .text(this.scale.width / 2, 150, 'THE POND IS DEFEATED', {
-        fontFamily: 'Arial',
-        fontSize: '44px',
-        fontStyle: 'bold',
-        color: '#fff4d6',
-      })
-      .setOrigin(0.5)
-      .setDepth(101);
-    const ending = this.add
-      .text(
-        this.scale.width / 2,
-        260,
-        'You ate everything and completely destroyed\nthe pond eco-system.',
-        {
-          fontFamily: 'Arial',
-          fontSize: '28px',
-          fontStyle: 'bold',
-          color: '#fff4d6',
-          align: 'center',
-          lineSpacing: 8,
-        },
-      )
-      .setOrigin(0.5)
-      .setDepth(101);
-    const score = this.add
-      .text(
-        this.scale.width / 2,
-        350,
-        `Final score: ${formatScore(this.runState.score)}`,
-        {
-          fontFamily: 'Arial',
-          fontSize: '24px',
-          fontStyle: 'bold',
-          color: '#fff4d6',
-        },
-      )
-      .setOrigin(0.5)
-      .setDepth(101);
-    const replay = this.add
-      .text(
-        this.scale.width / 2,
-        410,
-        'PRESS ENTER, SPACE, OR AN ARROW KEY TO REPLAY',
-        {
-          fontFamily: 'Arial',
-          fontSize: '18px',
-          fontStyle: 'bold',
-          color: '#087fa8',
-          backgroundColor: '#fff4d6',
-          padding: { x: 10, y: 6 },
-        },
-      )
-      .setOrigin(0.5)
-      .setDepth(101);
-    this.endViews = [overlay, title, ending, score, replay];
+    this.audio.stopMusic();
+    this.audio.playEffect('victory');
+    this.endViews = buildVictoryScreen(this, { score: this.runState.score });
   }
 
-  updateFishViews() {
+  updateFishViews(timeSeconds) {
     const fishIds = new Set(this.fishPopulation.fish.map((fish) => fish.id));
     for (const [id, view] of this.fishViews) {
-      if (!fishIds.has(id)) {
+      if (fishIds.has(id)) continue;
+      this.fishViews.delete(id);
+      if (this.eatenIdsThisFrame.has(id) && this.player) {
+        // Brief swallow: the prey is drawn into the player and shrinks away.
+        this.tweens.add({
+          targets: view,
+          x: this.player.x,
+          y: this.player.y,
+          scaleX: 0,
+          scaleY: 0,
+          alpha: 0,
+          duration: 140,
+          ease: 'Sine.easeIn',
+          onComplete: () => view.destroy(),
+        });
+      } else {
         view.destroy();
-        this.fishViews.delete(id);
       }
     }
 
     for (const fish of this.fishPopulation.fish) {
       let view = this.fishViews.get(fish.id);
       if (!view) {
-        view = this.add.image(
-          fish.x,
-          fish.y,
-          `fish-${gameConfig.fishPopulation.visualVariants[fish.variant]}`,
-        );
+        view = this.add.image(fish.x, fish.y, fishTextureKey(fish.variant));
         this.fishViews.set(fish.id, view);
       }
 
+      const wiggle = swimWiggle(
+        timeSeconds,
+        fish.id,
+        fish.size,
+        gameConfig.presentation.swimWiggle,
+      );
       view.setPosition(fish.x, fish.y);
-      view.setDisplaySize(fish.size, fish.size * 0.6);
+      view.setDisplaySize(
+        fish.size * wiggle.scaleX,
+        fish.size * FISH_ASPECT * wiggle.scaleY,
+      );
+      view.setAngle(wiggle.angleDegrees);
       view.setFlipX(fish.direction < 0);
     }
   }

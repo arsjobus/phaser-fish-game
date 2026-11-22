@@ -41,4 +41,14 @@ The repository contains design documentation but no original SWF, archived scree
 
 ## Assets and licensing
 
-No original or third-party visual/audio assets are present in this repository. No asset has been incorporated or assumed to be licensed for reuse. Future art and audio must be independently created or obtained with documented provenance and permission.
+No original or third-party visual/audio assets are present in this repository. No asset has been incorporated or assumed to be licensed for reuse.
+
+Phase 6 presentation is entirely original to this project:
+
+- Fish artwork: hand-authored SVGs in `public/assets/`.
+- Water gradient, sandy floor, pebbles, and seaweed: generated in code (`src/presentation/pondBackdrop.js`).
+- Music: a short original looping tune written as note data (`src/game/musicScore.js`) and synthesised at runtime.
+- Sound effects (eat, death, victory): synthesised at runtime (`src/audio/synthBackend.js`). The eat sound is an original approximation of a wet, burp-like blorp, not a copy of any original recording.
+- No sound effects beyond eat, death, and victory are claimed to be verified in the original; the original audio inventory and loop length remain unknown.
+
+Future art and audio must be independently created or obtained with documented provenance and permission.

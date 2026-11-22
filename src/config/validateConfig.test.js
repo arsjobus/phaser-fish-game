@@ -63,3 +63,46 @@ describe('game configuration', () => {
     expect(validateGameConfig(invalid).valid).toBe(false);
   });
 });
+
+describe('audio and presentation configuration', () => {
+  it('rejects an out-of-range volume', () => {
+    const invalid = {
+      ...gameConfig,
+      audio: { ...gameConfig.audio, musicVolume: 1.5 },
+    };
+
+    expect(validateGameConfig(invalid).valid).toBe(false);
+  });
+
+  it('rejects missing audio or presentation sections', () => {
+    const { audio: _audio, ...withoutAudio } = gameConfig;
+    const { presentation: _presentation, ...withoutPresentation } = gameConfig;
+
+    expect(validateGameConfig(withoutAudio).valid).toBe(false);
+    expect(validateGameConfig(withoutPresentation).valid).toBe(false);
+  });
+
+  it('rejects an animation amplitude large enough to distort collision readability', () => {
+    const invalid = {
+      ...gameConfig,
+      presentation: {
+        ...gameConfig.presentation,
+        swimWiggle: { ...gameConfig.presentation.swimWiggle, amplitude: 0.9 },
+      },
+    };
+
+    expect(validateGameConfig(invalid).valid).toBe(false);
+  });
+
+  it('rejects a growth pulse that shrinks the fish', () => {
+    const invalid = {
+      ...gameConfig,
+      presentation: {
+        ...gameConfig.presentation,
+        growthPulse: { scale: 0.5, durationMs: 200 },
+      },
+    };
+
+    expect(validateGameConfig(invalid).valid).toBe(false);
+  });
+});

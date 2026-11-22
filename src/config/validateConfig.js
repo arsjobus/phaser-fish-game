@@ -3,11 +3,16 @@ export function validateGameConfig(config) {
   const pond = config?.pond;
   const player = config?.player;
   const fishPopulation = config?.fishPopulation;
+  const audio = config?.audio;
+  const presentation = config?.presentation;
 
   const positiveFinite = (value) =>
     typeof value === 'number' && Number.isFinite(value) && value > 0;
   const nonNegativeFinite = (value) =>
     typeof value === 'number' && Number.isFinite(value) && value >= 0;
+
+  const unitInterval = (value) =>
+    typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 1;
 
   const valid =
     positiveFinite(display?.width) &&
@@ -53,7 +58,34 @@ export function validateGameConfig(config) {
     Array.isArray(fishPopulation?.visualVariants) &&
     fishPopulation.visualVariants.length > 0 &&
     fishPopulation.visualVariants.every((variant) => typeof variant === 'string') &&
-    new Set(fishPopulation.visualVariants).size === fishPopulation.visualVariants.length;
+    new Set(fishPopulation.visualVariants).size === fishPopulation.visualVariants.length &&
+    unitInterval(audio?.musicVolume) &&
+    unitInterval(audio?.effectsVolume) &&
+    positiveFinite(audio?.tempoBpm) &&
+    positiveFinite(audio?.lookaheadSeconds) &&
+    typeof audio?.effectCooldownSeconds === 'object' &&
+    audio.effectCooldownSeconds !== null &&
+    Object.values(audio.effectCooldownSeconds).every(nonNegativeFinite) &&
+    typeof presentation?.water?.top === 'string' &&
+    typeof presentation?.water?.bottom === 'string' &&
+    typeof presentation?.sand?.top === 'string' &&
+    typeof presentation?.sand?.bottom === 'string' &&
+    positiveFinite(presentation?.swimWiggle?.frequencyHz) &&
+    nonNegativeFinite(presentation?.swimWiggle?.amplitude) &&
+    presentation.swimWiggle.amplitude < 0.5 &&
+    nonNegativeFinite(presentation?.swimWiggle?.angleDegrees) &&
+    unitInterval(presentation?.swimWiggle?.smallestFishScale) &&
+    positiveFinite(presentation?.swimWiggle?.fullAmplitudeSize) &&
+    positiveFinite(presentation?.growthPulse?.scale) &&
+    presentation.growthPulse.scale >= 1 &&
+    positiveFinite(presentation?.growthPulse?.durationMs) &&
+    positiveFinite(presentation?.maxFrameSeconds) &&
+    typeof presentation?.fallbackColors === 'object' &&
+    presentation.fallbackColors !== null &&
+    positiveFinite(presentation?.scale?.minimumWidth) &&
+    positiveFinite(presentation?.scale?.minimumHeight) &&
+    presentation.scale.maximumWidth >= presentation.scale.minimumWidth &&
+    presentation.scale.maximumHeight >= presentation.scale.minimumHeight;
 
   return {
     valid,

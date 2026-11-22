@@ -386,56 +386,58 @@ This phase can begin earlier where assets are independent, but the final present
 
 ### Tasks — Environment and fish artwork
 
-- [ ] Create the blue water background/gradient.
-- [ ] Create the sandy bottom.
-- [ ] Add sparse aquatic plants/seaweed.
-- [ ] Create the player fish artwork, starting with the recognisable orange/red fish.
-- [ ] Create or adapt the shared fish artwork for non-player fish.
-- [ ] Provide the necessary colour variants.
-- [ ] Ensure fish scale cleanly across the supported size range.
-- [ ] Preserve clear visual distinction between fish at different sizes.
+- [x] Create the blue water background/gradient.
+- [x] Create the sandy bottom.
+- [x] Add sparse aquatic plants/seaweed.
+- [x] Create the player fish artwork, starting with the recognisable orange/red fish.
+- [x] Create or adapt the shared fish artwork for non-player fish.
+- [x] Provide the necessary colour variants.
+- [x] Ensure fish scale cleanly across the supported size range.
+- [x] Preserve clear visual distinction between fish at different sizes.
 - [ ] Match the original's uncluttered composition and playfield proportions.
-- [ ] Recreate the title wordmark and title-screen composition.
+- [x] Recreate the title wordmark and title-screen composition.
 
 ### Tasks — Animation and feedback
 
-- [ ] Add simple fish swimming animation.
-- [ ] Keep animation readable at the smallest fish sizes.
-- [ ] Add a subtle, satisfying player growth response after eating.
-- [ ] Add appropriate removal/disappearance feedback without inventing an elaborate bite system.
-- [ ] Add restrained feedback for player death.
-- [ ] Add a clear victory presentation.
-- [ ] Avoid effects that obscure fish size or collision readability.
+- [x] Add simple fish swimming animation.
+- [x] Keep animation readable at the smallest fish sizes.
+- [x] Add a subtle, satisfying player growth response after eating.
+- [x] Add appropriate removal/disappearance feedback without inventing an elaborate bite system.
+- [x] Add restrained feedback for player death.
+- [x] Add a clear victory presentation.
+- [x] Avoid effects that obscure fish size or collision readability.
 
 ### Tasks — Audio
 
-- [ ] Add one short looping background music track with a playful arcade tone.
-- [ ] Add the eating sound effect, aiming for the original wet/burp-like character.
+- [x] Add one short looping background music track with a playful arcade tone.
+- [x] Add the eating sound effect, aiming for the original wet/burp-like character.
 - [ ] Add any other sound effects verified in the original.
-- [ ] Add sound controls in the lower-left area or the closest faithful equivalent.
-- [ ] Implement mute/unmute or the verified original sound-control behaviour.
-- [ ] Ensure music loops cleanly.
-- [ ] Ensure sound effects do not overlap in a disruptive way.
-- [ ] Handle missing audio assets gracefully.
+- [x] Add sound controls in the lower-left area or the closest faithful equivalent.
+- [x] Implement mute/unmute or the verified original sound-control behaviour.
+- [x] Ensure music loops cleanly.
+- [x] Ensure sound effects do not overlap in a disruptive way.
+- [x] Handle missing audio assets gracefully.
 
 ### Tasks — HUD and screen polish
 
 - [ ] Match score placement and visual hierarchy.
 - [ ] Match the fish-eaten indicator placement and appearance.
-- [ ] Ensure UI remains legible against the water background.
-- [ ] Recreate title, game-over, high-score, and victory screen styling.
-- [ ] Check all supported window sizes and aspect ratios.
-- [ ] Add focus handling so keyboard input behaves predictably when the game window loses/regains focus.
+- [x] Ensure UI remains legible against the water background.
+- [x] Recreate title, game-over, high-score, and victory screen styling.
+- [x] Check all supported window sizes and aspect ratios.
+- [x] Add focus handling so keyboard input behaves predictably when the game window loses/regains focus.
+
+> Items that compare against the original (marked open above) stay open: no reference SWF, archived screenshots, or verified audio inventory exists in this repository. All artwork is original or reconstructed and all sound is synthesised at runtime (see `REFERENCE-OBSERVATIONS.md`).
 
 ### Tests and checks
 
-- [ ] Asset loading handles missing or invalid files without crashing.
-- [ ] Audio controls correctly change playback state.
-- [ ] Music loop does not introduce an audible gap or duplicate playback.
-- [ ] HUD renders current game state correctly.
-- [ ] All important UI states have visual review or screenshot checks where practical.
-- [ ] Verify that effects and animation do not alter gameplay collision values.
-- [ ] Test keyboard focus and audio behaviour through state transitions.
+- [x] Asset loading handles missing or invalid files without crashing.
+- [x] Audio controls correctly change playback state.
+- [x] Music loop does not introduce an audible gap or duplicate playback.
+- [x] HUD renders current game state correctly.
+- [x] All important UI states have visual review or screenshot checks where practical.
+- [x] Verify that effects and animation do not alter gameplay collision values.
+- [x] Test keyboard focus and audio behaviour through state transitions.
 
 ### Playtesting
 
@@ -444,6 +446,8 @@ This phase can begin earlier where assets are independent, but the final present
 - [ ] Confirm the player remains identifiable as it grows.
 - [ ] Confirm sound feedback is pleasant and not repetitive to the point of annoyance.
 - [ ] Check that the presentation stays simple and faithful.
+
+Manual playtesting remains outstanding. Automated rules tests, browser-driven state checks (title, gameplay, eating, pause/focus, sound controls, game over, victory, replay, missing/corrupt assets, window sizes) and screenshot review are complete.
 
 ### Acceptance criteria
 

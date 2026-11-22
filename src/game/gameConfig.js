@@ -8,8 +8,21 @@ export function createGameConfig() {
     parent: 'app',
     width: gameConfig.display.width,
     height: gameConfig.display.height,
-    backgroundColor: gameConfig.display.backgroundColor,
+    // Transparent so the CSS water gradient behind the canvas shows through.
+    transparent: true,
     pixelArt: false,
+    scale: {
+      mode: Phaser.Scale.FIT,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+      min: {
+        width: gameConfig.presentation.scale.minimumWidth,
+        height: gameConfig.presentation.scale.minimumHeight,
+      },
+      max: {
+        width: gameConfig.presentation.scale.maximumWidth,
+        height: gameConfig.presentation.scale.maximumHeight,
+      },
+    },
     scene: [FoundationScene],
   };
 }
