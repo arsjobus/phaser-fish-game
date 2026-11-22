@@ -118,31 +118,31 @@ These are logical responsibilities, not a requirement to create a class or modul
 
 ### Tasks
 
-- [ ] Create the fixed playfield and pond background.
-- [ ] Add a temporary player-fish graphic or placeholder.
-- [ ] Read the four arrow-key inputs.
-- [ ] Implement acceleration in the direction of input.
-- [ ] Preserve momentum when input is released.
-- [ ] Implement water resistance/deceleration.
-- [ ] Implement maximum movement speed.
-- [ ] Handle diagonal input consistently; avoid unintended diagonal speed advantage.
-- [ ] Implement horizontal screen wraparound.
-- [ ] Constrain vertical movement to the playfield.
-- [ ] Prevent invalid positions or unstable movement at screen boundaries.
-- [ ] Keep movement independent of frame rate by using elapsed time.
-- [ ] Make movement parameters configurable for later tuning.
+- [x] Create the fixed playfield and pond background.
+- [x] Add a temporary player-fish graphic or placeholder.
+- [x] Read the four arrow-key inputs.
+- [x] Implement acceleration in the direction of input.
+- [x] Preserve momentum when input is released.
+- [x] Implement water resistance/deceleration.
+- [x] Implement maximum movement speed.
+- [x] Handle diagonal input consistently; avoid unintended diagonal speed advantage.
+- [x] Implement horizontal screen wraparound.
+- [x] Constrain vertical movement to the playfield.
+- [x] Prevent invalid positions or unstable movement at screen boundaries.
+- [x] Keep movement independent of frame rate by using elapsed time.
+- [x] Make movement parameters configurable for later tuning.
 
 ### Tests
 
-- [ ] Input accelerates the player in the expected direction.
-- [ ] Releasing input does not instantly stop the player.
-- [ ] Drag reduces velocity over time.
-- [ ] Opposite-direction input counters existing momentum.
-- [ ] Maximum speed is respected.
-- [ ] Diagonal movement is normalised or otherwise intentionally balanced.
-- [ ] Horizontal wrap works in both directions.
-- [ ] Vertical boundaries behave as specified.
-- [ ] Movement produces consistent results under different update intervals.
+- [x] Input accelerates the player in the expected direction.
+- [x] Releasing input does not instantly stop the player.
+- [x] Drag reduces velocity over time.
+- [x] Opposite-direction input counters existing momentum.
+- [x] Maximum speed is respected.
+- [x] Diagonal movement is normalised or otherwise intentionally balanced.
+- [x] Horizontal wrap works in both directions.
+- [x] Vertical boundaries behave as specified.
+- [x] Movement produces consistent results under different update intervals.
 - [ ] Regression tests cover any movement defects discovered during playtesting.
 
 ### Playtesting

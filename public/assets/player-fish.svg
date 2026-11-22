@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60" role="img" aria-label="Orange fish">
+  <path d="M67 30C78 12 91 8 96 11C94 20 92 27 96 38C88 38 78 35 67 30Z" fill="#ef6b1a"/>
+  <ellipse cx="43" cy="30" rx="37" ry="22" fill="#ff6a1a"/>
+  <path d="M41 9C49 2 58 3 61 11C54 13 48 14 41 9Z" fill="#d94b12"/>
+  <path d="M40 51C48 58 57 56 61 49C54 47 48 47 40 51Z" fill="#d94b12"/>
+  <path d="M42 21C31 17 23 20 17 30C24 39 33 42 43 38Z" fill="#ff8734" opacity=".72"/>
+  <circle cx="19" cy="28" r="8" fill="#fff5df"/>
+  <circle cx="17" cy="29" r="4" fill="#182a3a"/>
+  <circle cx="15" cy="27" r="1.2" fill="#fff"/>
+  <path d="M7 30C12 28 15 28 20 30C15 33 11 33 7 30Z" fill="#b83d13"/>
+  <path d="M30 15C36 23 36 37 29 46" fill="none" stroke="#c83d12" stroke-width="2" opacity=".8"/>
+  <path d="M56 27C62 23 67 24 71 30C66 35 60 34 56 27Z" fill="#d94b12"/>
+</svg>
