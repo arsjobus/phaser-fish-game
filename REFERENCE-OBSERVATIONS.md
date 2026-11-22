@@ -17,6 +17,8 @@ The repository contains design documentation but no original SWF, archived scree
 - Eating grows the player and increases score/progress.
 - The original has a title screen, gameplay, game-over/replay flow, and a victory ending.
 - The canonical victory copy is: "You ate everything and completely destroyed the pond eco-system."
+- Victory is reconstructed to trigger when the player reaches the configured maximum size (176 in the prototype).
+- High-score entry and name submission are not established by the available reference images; the prototype stores a top-five numeric list locally.
 - The archived visual identity includes blue water, a sandy floor, sparse plants, a minimal HUD, and a small set of sound controls.
 - The prototype reconstructs the top-left fish icon as eaten-count progress and places the score at the top centre.
 - The prototype's reconstructed score rule awards a configurable fixed 10 points per meal.

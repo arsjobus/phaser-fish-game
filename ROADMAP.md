@@ -324,40 +324,40 @@ Manual playtesting remains outstanding; the simulation and its automated accepta
 
 ### Tasks
 
-- [ ] Implement an explicit application/game state model.
-- [ ] Create the title screen.
-- [ ] Reproduce the title treatment and original start instructions as closely as practical.
-- [ ] Implement the start-game interaction.
-- [ ] Initialise a clean run when a new game begins.
-- [ ] Implement the game-over state when a larger fish eats the player.
-- [ ] Display the final score and relevant run result.
-- [ ] Implement local high-score recording and display.
-- [ ] Determine and implement the original-style high-score interaction/entry flow if confirmed by reference inspection.
-- [ ] Persist high scores locally using the simplest suitable mechanism for the target runtime.
-- [ ] Handle missing, invalid, or unwritable high-score data safely.
-- [ ] Implement replay from the end state.
-- [ ] Ensure replay resets all run-specific entities and values.
-- [ ] Determine the victory condition using direct observation where possible.
-- [ ] Implement the victory state and the ecological-destruction ending message.
-- [ ] Prevent further normal gameplay once the victory state is reached.
-- [ ] Provide a replay path after victory.
-- [ ] Ensure state transitions cannot accidentally trigger multiple times.
+- [x] Implement an explicit application/game state model.
+- [x] Create the title screen.
+- [x] Reproduce the title treatment and original start instructions as closely as practical.
+- [x] Implement the start-game interaction.
+- [x] Initialise a clean run when a new game begins.
+- [x] Implement the game-over state when a larger fish eats the player.
+- [x] Display the final score and relevant run result.
+- [x] Implement local high-score recording and display.
+- [x] Implement a simple high-score display because no name-entry flow is confirmed by direct reference.
+- [x] Persist high scores locally using the simplest suitable mechanism for the target runtime.
+- [x] Handle missing, invalid, or unwritable high-score data safely.
+- [x] Implement replay from the end state.
+- [x] Ensure replay resets all run-specific entities and values.
+- [x] Define the victory condition as reaching the reconstructed maximum player size.
+- [x] Implement the victory state and the ecological-destruction ending message.
+- [x] Prevent further normal gameplay once the victory state is reached.
+- [x] Provide a replay path after victory.
+- [x] Ensure state transitions cannot accidentally trigger multiple times.
 
 ### Tests
 
-- [ ] Launch enters the title state.
-- [ ] Start interaction begins a fresh run.
-- [ ] Player death enters game over exactly once.
-- [ ] Game-over result displays the final run score.
-- [ ] High scores are saved and loaded correctly.
-- [ ] High-score data survives application restart.
-- [ ] Invalid or missing high-score data does not crash the game.
-- [ ] A new run resets player, fish, score, and eaten count.
-- [ ] Victory condition enters the victory state.
-- [ ] Victory state displays the intended ending.
-- [ ] Replay works after both game over and victory.
-- [ ] Input is appropriately restricted in non-gameplay states.
-- [ ] State transitions and persistence have regression coverage.
+- [x] Launch enters the title state.
+- [x] Start interaction begins a fresh run.
+- [x] Player death enters game over exactly once.
+- [x] Game-over result displays the final run score.
+- [x] High scores are saved and loaded correctly.
+- [x] High-score data survives application restart.
+- [x] Invalid or missing high-score data does not crash the game.
+- [x] A new run resets player, fish, score, and eaten count.
+- [x] Victory condition enters the victory state.
+- [x] Victory state displays the intended ending.
+- [x] Replay works after both game over and victory.
+- [x] Input is appropriately restricted in non-gameplay states.
+- [x] State transitions and persistence have regression coverage.
 
 ### Playtesting
 
@@ -369,10 +369,10 @@ Manual playtesting remains outstanding; the simulation and its automated accepta
 
 ### Acceptance criteria
 
-- The game has a working title, gameplay, game-over, high-score, and victory flow.
-- A run can end in either failure or a genuine completion ending.
-- Both outcomes allow the player to start again.
-- High scores persist locally and do not require an account or network.
+- [x] The game has a working title, gameplay, game-over, high-score, and victory flow.
+- [x] A run can end in either failure or a genuine completion ending.
+- [x] Both outcomes allow the player to start again.
+- [x] High scores persist locally and do not require an account or network.
 
 **Deliverable:** A complete start-to-finish game flow.
 
