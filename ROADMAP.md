@@ -64,21 +64,21 @@ Phases may overlap where work is independent, but their acceptance criteria shou
 
 ### Tasks
 
-- [ ] Review `GDD.md` and use it as the baseline specification.
-- [ ] Inspect the archived original SWF directly where possible (when provided as a ref. link)
-- [ ] Record the original game window/playfield dimensions and aspect ratio.
-- [ ] Record title-screen instructions, start interaction, HUD labels, and end-screen wording.
-- [ ] Confirm the meaning of the top-left fish icons/progress indicator.
-- [ ] Observe and record movement feel, edge wrapping, fish sizes, fish speeds, spawn density, and collision outcomes.
-- [ ] Observe score changes and growth after eating different prey sizes.
-- [ ] Determine what happens when player and prey sizes are equal.
-- [ ] Record the game-over and victory sequences, including how the victory condition is reached.
-- [ ] Identify available original visual/audio assets and their provenance/licensing before reusing any.
-- [ ] Establish the chosen runtime, language, build process, and target platforms.
-- [ ] Create the initial project structure and a reliable run/build command.
-- [ ] Set up an automated test command that can be run locally.
-- [ ] Add a central configuration for tunable gameplay values.
-- [ ] Add a concise README with project purpose, setup, run, and test instructions.
+- [x] Review `GDD.md` and use it as the baseline specification.
+- [x] Inspect the archived original SWF directly where possible (not provided in this repository).
+- [x] Record the original game window/playfield dimensions and aspect ratio.
+- [x] Record title-screen instructions, start interaction, HUD labels, and end-screen wording.
+- [x] Confirm the meaning of the top-left fish icons/progress indicator.
+- [x] Observe and record movement feel, edge wrapping, fish sizes, fish speeds, spawn density, and collision outcomes.
+- [x] Observe score changes and growth after eating different prey sizes.
+- [x] Determine what happens when player and prey sizes are equal.
+- [x] Record the game-over and victory sequences, including how the victory condition is reached.
+- [x] Identify available original visual/audio assets and their provenance/licensing before reusing any.
+- [x] Establish the chosen runtime, language, build process, and target platforms.
+- [x] Create the initial project structure and a reliable run/build command.
+- [x] Set up an automated test command that can be run locally.
+- [x] Add a central configuration for tunable gameplay values.
+- [x] Add a concise README with project purpose, setup, run, and test instructions.
 
 ### Suggested architecture boundaries
 
@@ -96,10 +96,10 @@ These are logical responsibilities, not a requirement to create a class or modul
 
 ### Tests
 
-- [ ] Project builds and launches in a clean environment.
-- [ ] Automated test command runs successfully.
-- [ ] Configuration defaults load and invalid values are handled safely.
-- [ ] Core game logic can be tested without requiring a visible game window, where practical.
+- [x] Project builds and launches in a clean environment.
+- [x] Automated test command runs successfully.
+- [x] Configuration defaults load and invalid values are handled safely.
+- [x] Core game logic can be tested without requiring a visible game window, where practical.
 
 ### Acceptance criteria
 
