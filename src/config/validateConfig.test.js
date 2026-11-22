@@ -49,4 +49,17 @@ describe('game configuration', () => {
   it('rejects missing configuration safely', () => {
     expect(validateGameConfig(undefined).valid).toBe(false);
   });
+
+  it('rejects invalid progression configuration', () => {
+    const invalid = {
+      ...gameConfig,
+      player: {
+        ...gameConfig.player,
+        maximumSize: 20,
+        progressionThresholds: [72, 48],
+      },
+    };
+
+    expect(validateGameConfig(invalid).valid).toBe(false);
+  });
 });

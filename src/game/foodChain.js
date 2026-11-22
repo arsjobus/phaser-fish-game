@@ -1,11 +1,10 @@
-export function createRunState(config) {
-  return {
-    size: config.initialSize,
-    eatenCount: 0,
-    score: 0,
-    status: 'playing',
-  };
-}
+import {
+  calculateMealScore,
+  createRunState,
+  resetRunState,
+} from './runProgress.js';
+
+export { createRunState, resetRunState };
 
 // The gameplay size is the entity diameter. Collision is a circle with the
 // configured fraction of that diameter as its radius.
@@ -64,9 +63,14 @@ export function resolveFishCollisions(player, runState, fish, config) {
       continue;
     }
     consumedIds.add(prey.id);
-    runState.size += config.growthPerMeal;
+    const maximumSize =
+      Number.isFinite(config.maximumSize) ? config.maximumSize : Infinity;
+    runState.size = Math.min(
+      maximumSize,
+      runState.size + config.growthPerMeal,
+    );
     runState.eatenCount += 1;
-    runState.score += config.scorePerFish;
+    runState.score += calculateMealScore(prey, config);
   }
 
   for (let index = fish.length - 1; index >= 0; index -= 1) {

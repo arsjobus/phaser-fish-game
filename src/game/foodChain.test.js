@@ -86,4 +86,16 @@ describe('food-chain collision resolution', () => {
     expect(fish).toHaveLength(0);
     expect(run.eatenCount).toBe(1);
   });
+
+  it('clamps growth at the configured maximum size', () => {
+    const run = createRunState({ ...config, initialSize: 172, maximumSize: 176 });
+    const fish = [{ id: 1, x: 100, y: 100, size: 40 }];
+
+    resolveFishCollisions({ x: 100, y: 100 }, run, fish, {
+      ...config,
+      maximumSize: 176,
+    });
+
+    expect(run.size).toBe(176);
+  });
 });

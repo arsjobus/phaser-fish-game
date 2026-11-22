@@ -5,6 +5,7 @@ import {
   createSeededRandom,
   updateFishPopulation,
 } from '../game/fishPopulation.js';
+import { formatScore, updateRunProgress } from '../game/runProgress.js';
 import { createPlayerMovement, updatePlayerMovement } from '../game/playerMovement.js';
 import {
   createRunState,
@@ -48,6 +49,36 @@ export class FoundationScene extends Phaser.Scene {
     this.fishPopulation = createFishPopulation(createSeededRandom(Date.now()));
     this.fishViews = new Map();
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.createHud();
+  }
+
+  createHud() {
+    this.scoreText = this.add
+      .text(this.scale.width / 2, 18, '0', {
+        fontFamily: 'Arial',
+        fontSize: '24px',
+        fontStyle: 'bold',
+        color: '#fff4d6',
+        align: 'center',
+      })
+      .setOrigin(0.5, 0);
+    this.scoreText.setDepth(50);
+
+    this.eatenIcon = this.add
+      .image(18, 24, 'player-fish')
+      .setDisplaySize(30, 18)
+      .setOrigin(0, 0.5)
+      .setFlipX(true);
+    this.eatenIcon.setDepth(50);
+    this.eatenText = this.add
+      .text(54, 18, '0', {
+        fontFamily: 'Arial',
+        fontSize: '20px',
+        fontStyle: 'bold',
+        color: '#fff4d6',
+      })
+      .setOrigin(0, 0);
+    this.eatenText.setDepth(50);
   }
 
   addSeaweed(x, bottom, color, height) {
@@ -72,6 +103,7 @@ export class FoundationScene extends Phaser.Scene {
     const { width, height } = this.scale;
     const pondBottom = height - gameConfig.pond.bottomInset;
     const elapsedSeconds = deltaMilliseconds / 1000;
+    updateRunProgress(this.runState, elapsedSeconds);
     this.playerMovement = updatePlayerMovement(
       this.playerMovement,
       {
@@ -121,7 +153,13 @@ export class FoundationScene extends Phaser.Scene {
     }
 
     this.player.setDisplaySize(this.runState.size, this.runState.size * 0.6);
+    this.updateHud();
     this.updateFishViews();
+  }
+
+  updateHud() {
+    this.scoreText.setText(formatScore(this.runState.score));
+    this.eatenText.setText(String(this.runState.eatenCount));
   }
 
   showEatingFeedback() {

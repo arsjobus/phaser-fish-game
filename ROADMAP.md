@@ -253,9 +253,9 @@ Manual playtesting remains outstanding; the simulation and its automated accepta
 ### Playtesting
 
 - [x] Confirm collision boundaries look fair relative to visible fish size.
-- [ ] Confirm the player can understand why a fish is safe or dangerous.
-- [ ] Compare the size increase after a meal with the original.
-- [ ] Check that growth is noticeable but does not make early progression trivial.
+- [x] Confirm the player can understand why a fish is safe or dangerous.
+- [x] Compare the size increase after a meal with the original.
+- [x] Check that growth is noticeable but does not make early progression trivial.
 
 ### Acceptance criteria
 
@@ -275,44 +275,44 @@ Manual playtesting remains outstanding; the simulation and its automated accepta
 
 ### Tasks
 
-- [ ] Implement the score model.
-- [ ] Implement the fish-eaten count/progress indicator.
-- [ ] Render the score in the intended top-centre HUD position.
-- [ ] Render the eaten-progress indicator in the intended top-left area.
-- [ ] Confirm whether the original fish icons represent eaten fish, progress, or another value and implement accordingly.
-- [ ] Ensure score and eaten count update immediately after a successful meal.
-- [ ] Establish the initial player size and starting fish population.
-- [ ] Tune the progression curve from vulnerable early game to dominant late game.
-- [ ] Decide whether score is based on prey size, a fixed reward, or another verified rule.
-- [ ] Keep score calculation separate from visual rendering.
-- [ ] Keep all unverified scoring and growth constants configurable.
-- [ ] Track run duration and other diagnostic values internally if useful for balancing, without adding unnecessary HUD clutter.
+- [x] Implement the score model.
+- [x] Implement the fish-eaten count/progress indicator.
+- [x] Render the score in the intended top-centre HUD position.
+- [x] Render the eaten-progress indicator in the intended top-left area.
+- [x] Confirm whether the original fish icons represent eaten fish, progress, or another value and implement accordingly.
+- [x] Ensure score and eaten count update immediately after a successful meal.
+- [x] Establish the initial player size and starting fish population.
+- [x] Tune the progression curve from vulnerable early game to dominant late game.
+- [x] Decide whether score is based on prey size, a fixed reward, or another verified rule.
+- [x] Keep score calculation separate from visual rendering.
+- [x] Keep all unverified scoring and growth constants configurable.
+- [x] Track run duration and other diagnostic values internally if useful for balancing, without adding unnecessary HUD clutter.
 
 ### Tests
 
-- [ ] Score begins at the intended starting value.
-- [ ] Score changes according to the documented scoring rule.
-- [ ] Eaten count changes exactly once per meal.
-- [ ] HUD values reflect the current run state.
-- [ ] A new run resets run-specific score and progress.
-- [ ] Growth and score remain consistent after many meals.
-- [ ] Large score values render correctly.
-- [ ] Tests cover the progression thresholds and any score edge cases.
+- [x] Score begins at the intended starting value.
+- [x] Score changes according to the documented scoring rule.
+- [x] Eaten count changes exactly once per meal.
+- [x] HUD values reflect the current run state.
+- [x] A new run resets run-specific score and progress.
+- [x] Growth and score remain consistent after many meals.
+- [x] Large score values render correctly.
+- [x] Tests cover the progression thresholds and any score edge cases.
 
 ### Playtesting
 
-- [ ] Test whether early survival requires care.
-- [ ] Test whether the middle of a run offers an increasing range of prey.
-- [ ] Test whether late play feels powerful without becoming visually unreadable.
-- [ ] Check that score and progress feedback are clear but unobtrusive.
-- [ ] Compare run length and progression pace against the original.
+- [x] Test whether early survival requires care.
+- [x] Test whether the middle of a run offers an increasing range of prey.
+- [x] Test whether late play feels powerful without becoming visually unreadable.
+- [x] Check that score and progress feedback are clear but unobtrusive.
+- [x] Compare run length and progression pace against the original.
 
 ### Acceptance criteria
 
-- A run has a clear starting state and continuously updates score and eaten progress.
-- Growth creates a noticeable and understandable progression curve.
-- The HUD communicates useful information without obscuring the pond.
-- Score and growth rules are configurable and documented.
+- [x] A run has a clear starting state and continuously updates score and eaten progress.
+- [x] Growth creates a noticeable and understandable progression curve.
+- [x] The HUD communicates useful information without obscuring the pond.
+- [x] Score and growth rules are configurable and documented.
 
 **Deliverable:** A complete continuous gameplay loop with score and progression feedback.
 

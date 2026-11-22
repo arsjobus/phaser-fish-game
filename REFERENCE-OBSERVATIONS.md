@@ -18,6 +18,8 @@ The repository contains design documentation but no original SWF, archived scree
 - The original has a title screen, gameplay, game-over/replay flow, and a victory ending.
 - The canonical victory copy is: "You ate everything and completely destroyed the pond eco-system."
 - The archived visual identity includes blue water, a sandy floor, sparse plants, a minimal HUD, and a small set of sound controls.
+- The prototype reconstructs the top-left fish icon as eaten-count progress and places the score at the top centre.
+- The prototype's reconstructed score rule awards a configurable fixed 10 points per meal.
 
 ## Unknown and recorded for SWF playtesting
 

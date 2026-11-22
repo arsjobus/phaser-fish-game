@@ -19,7 +19,16 @@ export function validateGameConfig(config) {
     nonNegativeFinite(player?.drag) &&
     positiveFinite(player?.initialSize) &&
     positiveFinite(player?.growthPerMeal) &&
+    positiveFinite(player?.maximumSize) &&
+    player.maximumSize >= player.initialSize &&
+    nonNegativeFinite(player?.startingScore) &&
     nonNegativeFinite(player?.scorePerFish) &&
+    Array.isArray(player?.progressionThresholds) &&
+    player.progressionThresholds.length > 0 &&
+    player.progressionThresholds.every((threshold) => positiveFinite(threshold)) &&
+    player.progressionThresholds.every((threshold, index, thresholds) =>
+      index === 0 || threshold >= thresholds[index - 1],
+    ) &&
     positiveFinite(player?.collisionRadiusScale) &&
     positiveFinite(fishPopulation?.spawnIntervalSeconds) &&
     Number.isInteger(fishPopulation?.populationLimit) &&

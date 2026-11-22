@@ -13,7 +13,10 @@ export const gameConfig = Object.freeze({
     drag: 3.5,
     initialSize: 36,
     growthPerMeal: 2,
+    maximumSize: 176,
+    startingScore: 0,
     scorePerFish: 10,
+    progressionThresholds: Object.freeze([36, 48, 72, 96, 120, 176]),
     collisionRadiusScale: 0.5,
   }),
   fishPopulation: Object.freeze({
