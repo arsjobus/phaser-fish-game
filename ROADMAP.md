@@ -1,4 +1,4 @@
-# Fish Game — Development Roadmap
+# Fish Food — Development Roadmap
 
 > **Purpose:** A phased implementation plan for recreating a popular early flash game [`GDD.md`](GDD.md).
 >

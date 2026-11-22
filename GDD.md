@@ -1,4 +1,4 @@
-# Fish Story — Game Design Document
+# Fish Food — Game Design Document
 
 > **Document purpose:** A design-level reconstruction of a Flash game!* This document describes the original classic-style game, not later remakes or the later level-based variant.
 >
@@ -8,7 +8,7 @@
 
 | Field             | Description                                                                                              |
 | ----------------- | -------------------------------------------------------------------------------------------------------- |
-| Title             | Fish Story                                                                                               |
+| Title             | Fish Food                                                                                               |
 | Genre             | Single-player arcade survival / skill-collect                                                            |
 | Perspective       | Side-on, 2D aquatic playfield                                                                            |
 | Core fantasy      | Begin as a tiny fish in a pond and grow into the dominant creature by eating everything smaller than you |
@@ -16,7 +16,7 @@
 | Input             | Keyboard arrow keys                                                                                      |
 | Primary objective | Eat smaller fish, avoid larger fish, grow, and ultimately consume the pond's fish population             |
 
-*Fish Story* is an extremely compact arcade game built around a readable food-chain rule: **eat smaller fish; do not touch bigger fish**. The player starts as a small orange fish among fish of many sizes. Every successful meal increases the player's size and score, changing which other fish are edible. The same growth that makes more prey available also makes the player larger and potentially harder to manoeuvre around threats.
+*Fish Food* is an extremely compact arcade game built around a readable food-chain rule: **eat smaller fish; do not touch bigger fish**. The player starts as a small orange fish among fish of many sizes. Every successful meal increases the player's size and score, changing which other fish are edible. The same growth that makes more prey available also makes the player larger and potentially harder to manoeuvre around threats.
 
 There are no levels to select, equipment systems, upgrades, dialogue, quests, or complex menus in the classic presentation. The central experience is the moment-to-moment decision of whether to pursue a meal, wait for a safer opening, or evade a predator.
 
@@ -170,7 +170,7 @@ The original update notes establish a high-score feature. The sources reviewed d
 
 ### Expected screen flow
 
-1. **Title screen:** displays the *! Fish Story !* title and begins the game.
+1. **Title screen:** displays the *! Fish Food !* title and begins the game.
 2. **Gameplay:** the pond, player fish, other fish, score/progress indicators, and sound controls are presented.
 3. **Game over:** reached when a larger fish eats the player; score/high-score handling is available.
 4. **Victory ending:** reached when the player completes the food-chain progression and consumes the pond population.
