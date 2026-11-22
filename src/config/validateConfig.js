@@ -17,12 +17,27 @@ export function validateGameConfig(config) {
     positiveFinite(player?.acceleration) &&
     positiveFinite(player?.maximumSpeed) &&
     nonNegativeFinite(player?.drag) &&
+    positiveFinite(player?.initialSize) &&
+    positiveFinite(player?.growthPerMeal) &&
+    nonNegativeFinite(player?.scorePerFish) &&
+    positiveFinite(player?.collisionRadiusScale) &&
     positiveFinite(fishPopulation?.spawnIntervalSeconds) &&
     Number.isInteger(fishPopulation?.populationLimit) &&
     fishPopulation.populationLimit > 0 &&
     positiveFinite(fishPopulation?.minimumSize) &&
     positiveFinite(fishPopulation?.maximumSize) &&
     fishPopulation.maximumSize >= fishPopulation.minimumSize &&
+    Array.isArray(fishPopulation?.sizeBands) &&
+    fishPopulation.sizeBands.length > 0 &&
+    fishPopulation.sizeBands.every((band) =>
+      positiveFinite(band?.minimumSize) &&
+      positiveFinite(band?.maximumSize) &&
+      band.maximumSize >= band.minimumSize &&
+      positiveFinite(band?.weight),
+    ) &&
+    Math.abs(
+      fishPopulation.sizeBands.reduce((total, band) => total + band.weight, 0) - 1,
+    ) < 0.000001 &&
     positiveFinite(fishPopulation?.minimumSpeed) &&
     positiveFinite(fishPopulation?.maximumSpeed) &&
     fishPopulation.maximumSpeed >= fishPopulation.minimumSpeed &&

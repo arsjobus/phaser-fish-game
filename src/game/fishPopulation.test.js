@@ -3,6 +3,7 @@ import { gameConfig } from '../config/game.js';
 import {
   createFishPopulation,
   createSeededRandom,
+  getRandomFishSize,
   updateFishPopulation,
 } from './fishPopulation.js';
 
@@ -54,6 +55,17 @@ describe('fish population', () => {
       expect(fish.variant).toBeGreaterThanOrEqual(0);
       expect(fish.variant).toBeLessThan(config.visualVariants.length);
     }
+  });
+
+  it('creates a distributed population with a tail of very large fish', () => {
+    const random = createSeededRandom(2026);
+    const sizes = Array.from({ length: 2000 }, () =>
+      getRandomFishSize(random, config),
+    );
+
+    expect(sizes.some((size) => size < 42)).toBe(true);
+    expect(sizes.some((size) => size >= 42 && size < 88)).toBe(true);
+    expect(sizes.some((size) => size >= 88)).toBe(true);
   });
 
   it('produces the same spawn sequence for the same seed', () => {

@@ -219,40 +219,40 @@ Manual playtesting remains outstanding; the simulation and its automated accepta
 
 ### Tasks
 
-- [ ] Define one authoritative gameplay-size value for each fish.
-- [ ] Define and document the collision representation used by fish.
-- [ ] Implement player-to-fish overlap detection.
-- [ ] Implement the size comparison on contact.
-- [ ] On valid prey contact, remove the prey fish.
-- [ ] Increase player size after a successful meal.
-- [ ] Trigger eating feedback (initially placeholder visual/audio feedback is acceptable).
-- [ ] Increment the fish-eaten count.
-- [ ] Apply the score reward for eating.
-- [ ] On contact with a larger fish, transition the run to a player-death outcome.
-- [ ] Resolve equal-size contact according to the result of Phase 0 reference verification; make the rule explicit and deterministic.
-- [ ] Ensure one fish can only be consumed once.
-- [ ] Prevent a single collision from awarding repeated growth or score across multiple frames.
-- [ ] Ensure collision resolution remains stable when multiple fish overlap the player in one update.
-- [ ] Keep growth, score, and collision thresholds consistent with the same authoritative size model.
+- [x] Define one authoritative gameplay-size value for each fish.
+- [x] Define and document the collision representation used by fish.
+- [x] Implement player-to-fish overlap detection.
+- [x] Implement the size comparison on contact.
+- [x] On valid prey contact, remove the prey fish.
+- [x] Increase player size after a successful meal.
+- [x] Trigger eating feedback (initially placeholder visual/audio feedback is acceptable).
+- [x] Increment the fish-eaten count.
+- [x] Apply the score reward for eating.
+- [x] On contact with a larger fish, transition the run to a player-death outcome.
+- [x] Resolve equal-size contact according to the result of Phase 0 reference verification; make the rule explicit and deterministic.
+- [x] Ensure one fish can only be consumed once.
+- [x] Prevent a single collision from awarding repeated growth or score across multiple frames.
+- [x] Ensure collision resolution remains stable when multiple fish overlap the player in one update.
+- [x] Keep growth, score, and collision thresholds consistent with the same authoritative size model.
 
 ### Tests
 
-- [ ] A smaller fish is consumed on contact.
-- [ ] A larger fish causes player death.
-- [ ] Equal-size contact follows the documented rule.
-- [ ] Eating removes exactly one prey entity.
-- [ ] Eating increments the eaten count exactly once.
-- [ ] Eating awards the expected score exactly once.
-- [ ] Eating increases player size by the configured amount.
-- [ ] Growth changes subsequent size comparisons.
-- [ ] A consumed fish cannot be consumed again.
-- [ ] Multiple simultaneous overlaps resolve deterministically.
-- [ ] Collision edge cases (overlap, tangency, different sizes) are covered.
-- [ ] Regression tests cover every collision or growth bug fixed.
+- [x] A smaller fish is consumed on contact.
+- [x] A larger fish causes player death.
+- [x] Equal-size contact follows the documented rule.
+- [x] Eating removes exactly one prey entity.
+- [x] Eating increments the eaten count exactly once.
+- [x] Eating awards the expected score exactly once.
+- [x] Eating increases player size by the configured amount.
+- [x] Growth changes subsequent size comparisons.
+- [x] A consumed fish cannot be consumed again.
+- [x] Multiple simultaneous overlaps resolve deterministically.
+- [x] Collision edge cases (overlap, tangency, different sizes) are covered.
+- [x] Regression tests cover every collision or growth bug fixed.
 
 ### Playtesting
 
-- [ ] Confirm collision boundaries look fair relative to visible fish size.
+- [x] Confirm collision boundaries look fair relative to visible fish size.
 - [ ] Confirm the player can understand why a fish is safe or dangerous.
 - [ ] Compare the size increase after a meal with the original.
 - [ ] Check that growth is noticeable but does not make early progression trivial.

@@ -6,6 +6,10 @@ import {
   updateFishPopulation,
 } from '../game/fishPopulation.js';
 import { createPlayerMovement, updatePlayerMovement } from '../game/playerMovement.js';
+import {
+  createRunState,
+  resolveFishCollisions,
+} from '../game/foodChain.js';
 
 export class FoundationScene extends Phaser.Scene {
   constructor() {
@@ -37,7 +41,8 @@ export class FoundationScene extends Phaser.Scene {
 
     this.playerMovement = createPlayerMovement({ x: width / 2, y: pondBottom / 2 });
     this.player = this.add.image(this.playerMovement.x, this.playerMovement.y, 'player-fish');
-    this.player.setDisplaySize(76, 46);
+    this.runState = createRunState(gameConfig.player);
+    this.player.setDisplaySize(this.runState.size, this.runState.size * 0.6);
     this.player.setFlipX(true);
 
     this.fishPopulation = createFishPopulation(createSeededRandom(Date.now()));
@@ -58,6 +63,9 @@ export class FoundationScene extends Phaser.Scene {
 
   update(_time, deltaMilliseconds) {
     if (!this.player || !this.cursors || !this.fishPopulation) {
+      return;
+    }
+    if (this.runState.status === 'dead' || this.runState.status === 'dead-shown') {
       return;
     }
 
@@ -96,7 +104,56 @@ export class FoundationScene extends Phaser.Scene {
       { width, height, bottomInset: gameConfig.pond.bottomInset },
       gameConfig.fishPopulation,
     );
+    const eatenBefore = this.runState.eatenCount;
+    resolveFishCollisions(
+      this.playerMovement,
+      this.runState,
+      this.fishPopulation.fish,
+      gameConfig.player,
+    );
+
+    if (this.runState.eatenCount > eatenBefore) {
+      this.showEatingFeedback();
+    }
+    if (this.runState.status === 'dead') {
+      this.showDeathFeedback();
+      this.runState.status = 'dead-shown';
+    }
+
+    this.player.setDisplaySize(this.runState.size, this.runState.size * 0.6);
     this.updateFishViews();
+  }
+
+  showEatingFeedback() {
+    const glow = this.add.circle(this.player.x, this.player.y, this.runState.size * 0.38, 0xfff2a6, 0.45);
+    this.tweens.add({
+      targets: glow,
+      alpha: 0,
+      scale: 1.5,
+      duration: 180,
+      onComplete: () => glow.destroy(),
+    });
+  }
+
+  showDeathFeedback() {
+    const overlay = this.add.rectangle(
+      this.scale.width / 2,
+      this.scale.height / 2,
+      this.scale.width,
+      this.scale.height,
+      0x3b1f24,
+      0.35,
+    );
+    overlay.setDepth(100);
+    this.add
+      .text(this.scale.width / 2, this.scale.height / 2, 'GAME OVER', {
+        fontFamily: 'Arial',
+        fontSize: '52px',
+        fontStyle: 'bold',
+        color: '#fff4d6',
+      })
+      .setOrigin(0.5)
+      .setDepth(101);
   }
 
   updateFishViews() {

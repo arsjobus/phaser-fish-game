@@ -13,7 +13,7 @@ The repository contains design documentation but no original SWF, archived scree
 - Left and right pond edges wrap horizontally; top and bottom are bounded.
 - Fish enter from both horizontal edges and travel across the pond.
 - Smaller fish are eaten on contact; larger fish end the run immediately.
-- Equality handling is unverified.
+- Equality handling is reconstructed as dangerous: equal-size contact ends the run until direct reference evidence changes it.
 - Eating grows the player and increases score/progress.
 - The original has a title screen, gameplay, game-over/replay flow, and a victory ending.
 - The canonical victory copy is: "You ate everything and completely destroyed the pond eco-system."

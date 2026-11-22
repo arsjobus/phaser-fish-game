@@ -19,11 +19,30 @@ export function createFishPopulation(random = Math.random) {
   };
 }
 
+export function getRandomFishSize(random, config) {
+  const bandRoll = random();
+  let cumulativeWeight = 0;
+
+  for (const band of config.sizeBands) {
+    cumulativeWeight += band.weight;
+    if (bandRoll < cumulativeWeight) {
+      return (
+        band.minimumSize +
+        random() * (band.maximumSize - band.minimumSize)
+      );
+    }
+  }
+
+  const fallback = config.sizeBands[config.sizeBands.length - 1];
+  return (
+    fallback.minimumSize +
+    random() * (fallback.maximumSize - fallback.minimumSize)
+  );
+}
+
 function spawnFish(population, bounds, config) {
   const direction = population.random() < 0.5 ? 1 : -1;
-  const size =
-    config.minimumSize +
-    population.random() * (config.maximumSize - config.minimumSize);
+  const size = getRandomFishSize(population.random, config);
   const top = size / 2;
   const bottom = bounds.height - bounds.bottomInset - size / 2;
   const y = top + population.random() * Math.max(0, bottom - top);
