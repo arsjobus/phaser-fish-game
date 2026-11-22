@@ -24,9 +24,15 @@ export class FoundationScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.svg('player-fish', '/assets/player-fish.svg');
+    this.load.svg(
+      'player-fish',
+      `${import.meta.env.BASE_URL}assets/player-fish.svg`,
+    );
     gameConfig.fishPopulation.visualVariants.forEach((variant) => {
-      this.load.svg(`fish-${variant}`, `/assets/fish-${variant}.svg`);
+      this.load.svg(
+        `fish-${variant}`,
+        `${import.meta.env.BASE_URL}assets/fish-${variant}.svg`,
+      );
     });
   }
 

@@ -361,7 +361,7 @@ Manual playtesting remains outstanding; the simulation and its automated accepta
 
 ### Playtesting
 
-- [ ] Complete a run ending in player death.
+- [x] Complete a run ending in player death.
 - [ ] Complete a run reaching victory.
 - [ ] Confirm the victory condition is achievable and understandable.
 - [ ] Confirm the game does not end prematurely or become impossible to complete.
